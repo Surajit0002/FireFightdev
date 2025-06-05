@@ -1,78 +1,63 @@
 import { Link, useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 import { 
-  LayoutDashboard, 
+  Home, 
   Trophy, 
   CreditCard, 
   Users, 
-  Settings,
-  Home,
-  Shield
+  BarChart3,
+  LogOut
 } from "lucide-react";
+
+const navigation = [
+  { name: "Dashboard", href: "/admin", icon: Home },
+  { name: "Tournaments", href: "/admin/tournaments", icon: Trophy },
+  { name: "Payments", href: "/admin/payments", icon: CreditCard },
+  { name: "Users", href: "/admin/users", icon: Users },
+  { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
+];
 
 export default function AdminSidebar() {
   const [location] = useLocation();
 
-  const adminNavItems = [
-    { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/tournaments", label: "Tournaments", icon: Trophy },
-    { href: "/admin/payments", label: "Payments", icon: CreditCard },
-    { href: "/admin/users", label: "Users", icon: Users },
-  ];
-
-  const isActive = (href: string) => location === href;
-
   return (
-    <div className="w-64 bg-card border-r border-border h-screen sticky top-0">
+    <div className="w-64 bg-gray-900 border-r border-gray-700 min-h-screen">
       <div className="p-6">
-        <Link href="/admin" className="flex items-center space-x-2">
-          <Shield className="h-8 w-8 text-accent" />
-          <div>
-            <h2 className="font-orbitron text-xl font-bold">Admin Panel</h2>
-            <p className="text-xs text-muted-foreground">Fire Fight</p>
-          </div>
-        </Link>
+        <h1 className="text-2xl font-bold text-white font-orbitron">Fire Fight</h1>
+        <p className="text-gray-400 text-sm mt-1">Admin Panel</p>
       </div>
 
-      <Separator />
-
-      <nav className="p-4 space-y-2">
-        {adminNavItems.map((item) => {
+      <nav className="px-4 space-y-2">
+        {navigation.map((item) => {
           const Icon = item.icon;
+          const isActive = location === item.href;
+          
           return (
-            <Link key={item.href} href={item.href}>
-              <Button
-                variant={isActive(item.href) ? "default" : "ghost"}
-                className={`w-full justify-start ${
-                  isActive(item.href) 
-                    ? "bg-primary text-primary-foreground hover:shadow-neon-green" 
-                    : "hover:bg-muted"
-                }`}
+            <Link key={item.name} href={item.href}>
+              <div
+                className={cn(
+                  "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-green-600 text-white"
+                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                )}
               >
-                <Icon className="mr-3 h-4 w-4" />
-                {item.label}
-              </Button>
+                <Icon className="h-5 w-5" />
+                {item.name}
+              </div>
             </Link>
           );
         })}
       </nav>
 
-      <Separator className="mx-4" />
-
-      <div className="p-4 space-y-2">
-        <Link href="/">
-          <Button variant="ghost" className="w-full justify-start hover:bg-muted">
-            <Home className="mr-3 h-4 w-4" />
-            Back to Site
-          </Button>
-        </Link>
-        <Link href="/admin/settings">
-          <Button variant="ghost" className="w-full justify-start hover:bg-muted">
-            <Settings className="mr-3 h-4 w-4" />
-            Settings
-          </Button>
-        </Link>
+      <div className="absolute bottom-6 left-4 right-4">
+        <a
+          href="/api/logout"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors w-full"
+        >
+          <LogOut className="h-5 w-5" />
+          Logout
+        </a>
       </div>
     </div>
   );
