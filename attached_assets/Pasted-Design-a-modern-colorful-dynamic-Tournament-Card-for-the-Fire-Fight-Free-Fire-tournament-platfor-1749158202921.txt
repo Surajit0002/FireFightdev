@@ -1,0 +1,109 @@
+Design a modern, colorful, dynamic Tournament Card for the “Fire Fight” Free Fire tournament platform. The card will be used in the Tournament Listing page, displayed in a 1 or 2-column grid on mobile. Make it engaging, vibrant, and informative with solid background colors and visual hierarchy.
+
+📦 Card Layout & Structure:
+Card Shape: Rounded corners, soft shadows, solid color background (not gradients)
+
+Size: Mobile responsive — adapts to 1-column or 2-column grid
+
+Vibrant background themes:
+
+Rotate through 6+ bold colors (e.g., Red, Purple, Electric Blue, Neon Green, Orange, Yellow)
+
+Auto-assign color themes or category-based colors
+
+🧩 Card Content Sections:
+🖼️ 1. Header (Banner Area)
+Tournament banner image or theme icon (optional overlay)
+
+Badge in top-left: 🔥 LIVE, ⚡ Upcoming, 🏁 Finished
+
+🏆 2. Title + Info
+Tournament Name (e.g., “Squad War: Bermuda”)
+
+Match Format Badge: SOLO, DUO, SQUAD, 1v1
+
+Map: Bermuda / Kalahari / Alpine
+
+💸 3. Entry & Prize
+Entry Fee: ₹20 or Free
+
+Total Prize Pool: ₹500
+
+“Top 3 Paid” or full breakdown short label
+
+⏰ 4. Time & Slot
+Start Time: Today, 6:00 PM
+
+Players Joined: 45/50
+
+Status: “Join Now” or “Already Joined”
+
+🔘 5. CTA Button
+Bold [JOIN NOW] or [VIEW DETAILS]
+
+Solid contrasting color button (White or Black text)
+
+Use animation on tap/hover (pulse, pop, zoom)
+
+💡 Bonus Elements (Optional):
+Top-right ⚙️ icon for admin actions (edit/delete)
+
+Small bottom-left “🏅 XP +50” reward icon
+
+Animated countdown circle for time left
+
+Verified/Featured badge
+
+Floating Join Button on hover for desktop
+
+🧱 Grid Design:
+1 column on small screens (mobile)
+
+2 columns on medium screens (tablet)
+
+3–4 columns on large screens (desktop, optional)
+
+Responsive padding/margin
+
+Cards animate slightly on scroll or tap
+
+🎨 Style Guidelines:
+Fonts: Barlow, Rajdhani, Orbitron or sharp gamer-style font
+
+Solid background colors
+
+Strong contrast on text (white/black based on bg)
+
+Shadow on card + floating appearance
+
+Use icons for: 💰, ⏰, 🧍‍♂️, 🎁 to boost readability
+
+🔧 Implementation-Ready for:
+React Native + NativeWind
+
+Next.js + Tailwind CSS
+
+Figma or Framer for visual UI
+
+Example Card Color Themes:
+🔴 Red with White Text (🔥LIVE)
+
+🟣 Purple with Neon Green text (Night Mode Battle)
+
+🔵 Electric Blue with Yellow accents (Fast Entry)
+
+🟢 Neon Green with Black text (Free Entry)
+
+🟠 Orange with White text (Hot Join)
+
+🟡 Yellow with Purple text (Max Reward)
+
+✅ Output Expectation:
+Vibrant, animated Tournament cards in grid view
+
+Solid-color themed cards with visual distinction
+
+Dynamic join info, prize pool, match time, and badge
+
+Responsive, touch-friendly, modern UI
+
