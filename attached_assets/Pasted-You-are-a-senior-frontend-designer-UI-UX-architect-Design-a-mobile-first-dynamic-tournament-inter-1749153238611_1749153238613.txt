@@ -1,0 +1,111 @@
+You are a senior frontend designer & UI/UX architect. Design a mobile-first dynamic tournament interface for a Free Fire cash tournament app called “Fire Fight.” The interface includes two key components:
+
+🟥 1. Tournament Cards Grid View (Main Screen)
+Show all tournaments in a colorful dynamic 2-column grid layout, mobile responsive.
+
+Each tournament card should include:
+
+📸 Tournament image/banner (top)
+
+🏆 Title (e.g., “Squad Battle Royale”)
+
+💰 Entry Fee + 🎁 Prize Pool
+
+⏰ Start time with countdown
+
+👥 Joined players out of max (e.g., “38/50”)
+
+A dynamic [Join Now] or [View] button
+
+Card color styles must be solid, vibrant, and varied (rotate 4-6 theme colors like red, blue, orange, green, purple)
+
+Add a hover effect / tap animation (zoom or pulse) on cards
+
+Enable scrolling and pagination if tournaments are many
+
+Tap on any card to open Tournament Details page (page transition or modal)
+
+🟩 2. Tournament Details Page (Opened via Card Click)
+Full-screen view, mobile-first layout, dynamic and smooth scroll
+
+Use tabs or sections (scrollable or sticky):
+
+Overview
+
+Rules
+
+Prize Pool
+
+Players Joined
+
+Room Code (if unlocked)
+
+Submit Results
+
+Top should include:
+
+🖼️ Banner Image
+
+Title, Match Type, Map, Time, Entry Fee
+
+Join Button (Dynamic: Join / Joined / Add Money)
+
+Wallet Balance display
+
+Tabs should be horizontal scrollable (swipeable on mobile)
+
+Solid background colors for tabs (e.g., red, black, neon green)
+
+Use popup modals for:
+
+“Join Tournament” confirmation
+
+“Upload Payment Screenshot”
+
+“Submit Match Result”
+
+Responsive popup/modal with dark semi-transparent background and centered white card UI
+
+Include match countdown timer
+
+If user joined, show “Room Code” field 5 mins before match start
+
+🔵 Design Requirements:
+Fully mobile responsive layout
+
+Use solid vibrant colors and gaming style (neon colors, black backgrounds)
+
+Bold fonts (like Orbitron, Barlow, Rajdhani)
+
+Support dynamic data rendering (list of tournaments, joined players, etc.)
+
+Apply shadows, rounded corners, modern card design
+
+Use dynamic badges (e.g., “Solo”, “Squad”, “Live”, “Full”)
+
+Grid must adapt based on device width (e.g., 1 column in small mobile, 2 in medium, 3 in tablet)
+
+🎯 Tools Compatibility:
+Output design/code should be compatible with:
+
+React / React Native / Expo
+
+Figma / Framer for design layout
+
+Tailwind CSS / NativeWind for styling
+
+Optional Supabase or Firebase integration-ready structure
+
+✅ Output Expectation:
+🎨 Beautiful, animated tournament cards with hover/tap effects
+
+🧱 Fully responsive Tournament Details Page with sections
+
+📱 Optimized for all mobile sizes (iOS, Android)
+
+🧰 Includes modal interactions and dynamic updates
+
+🔁 Smooth navigation from card to details
+
+📦 Designed for real-world implementation
+
