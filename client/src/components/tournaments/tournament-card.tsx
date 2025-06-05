@@ -8,7 +8,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import CountdownTimer from "@/components/ui/countdown-timer";
-import { Trophy, Users, Target, Clock, Zap, Star, Award, DollarSign } from "lucide-react";
+import { Trophy, Users, Target, Clock, Zap, Star, Award, DollarSign, GamepadIcon, Flame, Shield } from "lucide-react";
 
 interface TournamentCardProps {
   tournament: {
@@ -38,8 +38,8 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/tournaments"] });
       toast({
-        title: "Success!",
-        description: "Successfully joined the tournament",
+        title: "🎉 Tournament Joined!",
+        description: "Welcome to the battlefield!",
       });
       setIsJoining(false);
     },
@@ -64,35 +64,94 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
     },
   });
 
+  // Dynamic theme colors rotation
+  const getThemeColors = (id: string) => {
+    const themes = [
+      {
+        primary: 'from-red-500 to-red-700',
+        secondary: 'from-red-400 to-red-600',
+        accent: 'bg-red-100',
+        text: 'text-red-700',
+        border: 'border-red-300',
+        neon: 'shadow-red-500/50',
+        bg: 'bg-gradient-to-br from-red-50 to-red-100'
+      },
+      {
+        primary: 'from-blue-500 to-blue-700',
+        secondary: 'from-blue-400 to-blue-600',
+        accent: 'bg-blue-100',
+        text: 'text-blue-700',
+        border: 'border-blue-300',
+        neon: 'shadow-blue-500/50',
+        bg: 'bg-gradient-to-br from-blue-50 to-blue-100'
+      },
+      {
+        primary: 'from-orange-500 to-orange-700',
+        secondary: 'from-orange-400 to-orange-600',
+        accent: 'bg-orange-100',
+        text: 'text-orange-700',
+        border: 'border-orange-300',
+        neon: 'shadow-orange-500/50',
+        bg: 'bg-gradient-to-br from-orange-50 to-orange-100'
+      },
+      {
+        primary: 'from-green-500 to-green-700',
+        secondary: 'from-green-400 to-green-600',
+        accent: 'bg-green-100',
+        text: 'text-green-700',
+        border: 'border-green-300',
+        neon: 'shadow-green-500/50',
+        bg: 'bg-gradient-to-br from-green-50 to-green-100'
+      },
+      {
+        primary: 'from-purple-500 to-purple-700',
+        secondary: 'from-purple-400 to-purple-600',
+        accent: 'bg-purple-100',
+        text: 'text-purple-700',
+        border: 'border-purple-300',
+        neon: 'shadow-purple-500/50',
+        bg: 'bg-gradient-to-br from-purple-50 to-purple-100'
+      },
+      {
+        primary: 'from-cyan-500 to-cyan-700',
+        secondary: 'from-cyan-400 to-cyan-600',
+        accent: 'bg-cyan-100',
+        text: 'text-cyan-700',
+        border: 'border-cyan-300',
+        neon: 'shadow-cyan-500/50',
+        bg: 'bg-gradient-to-br from-cyan-50 to-cyan-100'
+      }
+    ];
+    
+    const index = parseInt(id) % themes.length;
+    return themes[index];
+  };
+
   const getTypeConfig = (type: string) => {
     switch (type.toLowerCase()) {
       case 'solo':
         return {
-          color: 'from-blue-400 to-cyan-400',
-          bgColor: 'bg-gradient-to-r from-blue-50 to-cyan-50',
-          textColor: 'text-blue-700',
-          icon: Target
+          icon: Target,
+          label: 'SOLO',
+          bgColor: 'bg-gradient-to-r from-yellow-400 to-yellow-600'
         };
       case 'duo':
         return {
-          color: 'from-purple-400 to-pink-400',
-          bgColor: 'bg-gradient-to-r from-purple-50 to-pink-50',
-          textColor: 'text-purple-700',
-          icon: Users
+          icon: Users,
+          label: 'DUO',
+          bgColor: 'bg-gradient-to-r from-pink-400 to-pink-600'
         };
       case 'squad':
         return {
-          color: 'from-orange-400 to-red-400',
-          bgColor: 'bg-gradient-to-r from-orange-50 to-red-50',
-          textColor: 'text-orange-700',
-          icon: Trophy
+          icon: Shield,
+          label: 'SQUAD',
+          bgColor: 'bg-gradient-to-r from-indigo-400 to-indigo-600'
         };
       default:
         return {
-          color: 'from-gray-400 to-slate-400',
-          bgColor: 'bg-gradient-to-r from-gray-50 to-slate-50',
-          textColor: 'text-gray-700',
-          icon: Star
+          icon: Star,
+          label: type.toUpperCase(),
+          bgColor: 'bg-gradient-to-r from-gray-400 to-gray-600'
         };
     }
   };
@@ -101,35 +160,31 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
     switch (status) {
       case 'live':
         return {
-          color: 'from-green-400 to-emerald-400',
-          bgColor: 'bg-gradient-to-r from-green-50 to-emerald-50',
-          textColor: 'text-green-700',
+          label: 'LIVE',
+          bgColor: 'bg-gradient-to-r from-red-500 to-red-600',
           animation: 'animate-pulse',
           icon: Zap
         };
       case 'upcoming':
         return {
-          color: 'from-yellow-400 to-amber-400',
-          bgColor: 'bg-gradient-to-r from-yellow-50 to-amber-50',
-          textColor: 'text-yellow-700',
+          label: 'UPCOMING',
+          bgColor: 'bg-gradient-to-r from-green-500 to-green-600',
           animation: '',
           icon: Clock
         };
       case 'completed':
         return {
-          color: 'from-gray-400 to-slate-400',
-          bgColor: 'bg-gradient-to-r from-gray-50 to-slate-50',
-          textColor: 'text-gray-700',
+          label: 'ENDED',
+          bgColor: 'bg-gradient-to-r from-gray-500 to-gray-600',
           animation: '',
           icon: Award
         };
       default:
         return {
-          color: 'from-indigo-400 to-blue-400',
-          bgColor: 'bg-gradient-to-r from-indigo-50 to-blue-50',
-          textColor: 'text-indigo-700',
+          label: 'ACTIVE',
+          bgColor: 'bg-gradient-to-r from-blue-500 to-blue-600',
           animation: '',
-          icon: Trophy
+          icon: GamepadIcon
         };
     }
   };
@@ -143,6 +198,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
   const isUpcoming = tournament.status === 'upcoming';
   const participationPercentage = (tournament.currentParticipants / tournament.maxParticipants) * 100;
   
+  const theme = getThemeColors(tournament.id);
   const typeConfig = getTypeConfig(tournament.type);
   const statusConfig = getStatusConfig(tournament.status);
   const TypeIcon = typeConfig.icon;
@@ -150,132 +206,127 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
 
   return (
     <Card 
-      className={`group relative overflow-hidden bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${
-        isHovered ? 'scale-105' : ''
-      }`}
+      className={`group relative overflow-hidden bg-white border-2 ${theme.border} shadow-xl hover:shadow-2xl ${theme.neon} transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 ${
+        isHovered ? 'animate-pulse' : ''
+      } rounded-2xl`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Animated background gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${typeConfig.color} opacity-5 group-hover:opacity-10 transition-opacity duration-300`} />
+      {/* Dynamic background overlay */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${theme.primary} opacity-5 group-hover:opacity-15 transition-opacity duration-300`} />
       
-      {/* Tournament Image with overlay */}
-      <div className="relative h-48 overflow-hidden">
-        <div className={`absolute inset-0 bg-gradient-to-br ${typeConfig.color} opacity-90`} />
+      {/* Tournament Banner Image */}
+      <div className="relative h-32 sm:h-36 overflow-hidden rounded-t-2xl">
+        <div className={`absolute inset-0 bg-gradient-to-br ${theme.primary} opacity-90`} />
         {tournament.imageUrl ? (
           <img 
             src={tournament.imageUrl} 
             alt={tournament.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <div className="text-center text-white">
-              <Trophy className="h-16 w-16 mx-auto mb-3 drop-shadow-lg" />
-              <p className="text-lg font-semibold drop-shadow">Arena</p>
+              <Flame className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-2 drop-shadow-lg animate-bounce" />
+              <p className="text-sm font-bold drop-shadow tracking-wider">FIRE FIGHT</p>
             </div>
           </div>
         )}
         
-        {/* Status badge overlay */}
-        <div className="absolute top-4 right-4">
-          <Badge className={`${statusConfig.bgColor} ${statusConfig.textColor} border-0 shadow-lg ${statusConfig.animation} px-3 py-1.5`}>
-            <StatusIcon className="mr-1.5 h-3.5 w-3.5" />
-            {tournament.status.toUpperCase()}
+        {/* Status Badge - Top Right */}
+        <div className="absolute top-2 right-2">
+          <Badge className={`${statusConfig.bgColor} text-white border-0 shadow-lg ${statusConfig.animation} px-2 py-1 text-xs font-bold tracking-wider`}>
+            <StatusIcon className="mr-1 h-3 w-3" />
+            {statusConfig.label}
           </Badge>
         </div>
         
-        {/* Type badge overlay */}
-        <div className="absolute top-4 left-4">
-          <Badge className={`${typeConfig.bgColor} ${typeConfig.textColor} border-0 shadow-lg px-3 py-1.5`}>
-            <TypeIcon className="mr-1.5 h-3.5 w-3.5" />
-            {tournament.type.toUpperCase()}
+        {/* Type Badge - Top Left */}
+        <div className="absolute top-2 left-2">
+          <Badge className={`${typeConfig.bgColor} text-white border-0 shadow-lg px-2 py-1 text-xs font-bold tracking-wider`}>
+            <TypeIcon className="mr-1 h-3 w-3" />
+            {typeConfig.label}
           </Badge>
         </div>
       </div>
 
-      <CardHeader className="pb-4">
-        <div className="space-y-2">
-          <h3 className="font-bold text-xl text-gray-800 leading-tight group-hover:text-gray-900 transition-colors">
-            {tournament.name}
-          </h3>
-          
-          {/* Prize and Fee Grid */}
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className={`${typeConfig.bgColor} rounded-xl p-4 border border-opacity-20`}>
-              <div className="flex items-center space-x-2">
-                <DollarSign className={`h-5 w-5 ${typeConfig.textColor}`} />
-                <div>
-                  <p className="text-xs text-gray-600 font-medium">Entry Fee</p>
-                  <p className={`text-lg font-bold ${typeConfig.textColor}`}>₹{tournament.entryFee}</p>
-                </div>
+      <CardHeader className="pb-2 pt-3">
+        {/* Tournament Title */}
+        <h3 className="font-bold text-base sm:text-lg text-gray-900 leading-tight group-hover:text-gray-800 transition-colors line-clamp-2">
+          {tournament.name}
+        </h3>
+      </CardHeader>
+      
+      <CardContent className="space-y-3 px-4 pb-4">
+        {/* Entry Fee & Prize Pool */}
+        <div className="grid grid-cols-2 gap-2">
+          <div className={`${theme.bg} rounded-xl p-3 ${theme.border} border`}>
+            <div className="flex items-center space-x-1">
+              <DollarSign className={`h-4 w-4 ${theme.text}`} />
+              <div>
+                <p className="text-xs text-gray-600 font-medium">Entry</p>
+                <p className={`text-sm font-bold ${theme.text}`}>₹{tournament.entryFee}</p>
               </div>
             </div>
-            
-            <div className={`${statusConfig.bgColor} rounded-xl p-4 border border-opacity-20`}>
-              <div className="flex items-center space-x-2">
-                <Trophy className={`h-5 w-5 ${statusConfig.textColor}`} />
-                <div>
-                  <p className="text-xs text-gray-600 font-medium">Prize Pool</p>
-                  <p className={`text-lg font-bold ${statusConfig.textColor}`}>₹{tournament.prizePool}</p>
-                </div>
+          </div>
+          
+          <div className={`${theme.bg} rounded-xl p-3 ${theme.border} border`}>
+            <div className="flex items-center space-x-1">
+              <Trophy className={`h-4 w-4 ${theme.text}`} />
+              <div>
+                <p className="text-xs text-gray-600 font-medium">Prize</p>
+                <p className={`text-sm font-bold ${theme.text}`}>₹{tournament.prizePool}</p>
               </div>
             </div>
           </div>
         </div>
-      </CardHeader>
-      
-      <CardContent className="space-y-5">
-        {/* Participants Progress */}
-        <div className="space-y-3">
+        
+        {/* Players Progress */}
+        <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <Users className="h-4 w-4 text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Participants</span>
+            <div className="flex items-center space-x-1">
+              <Users className="h-3.5 w-3.5 text-gray-600" />
+              <span className="text-xs font-medium text-gray-700">Players</span>
             </div>
-            <span className="text-sm font-bold text-gray-800">
+            <span className="text-xs font-bold text-gray-800">
               {tournament.currentParticipants}/{tournament.maxParticipants}
             </span>
           </div>
           
           {/* Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+          <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
             <div 
-              className={`h-full bg-gradient-to-r ${typeConfig.color} rounded-full transition-all duration-700 ease-out`}
+              className={`h-full bg-gradient-to-r ${theme.secondary} rounded-full transition-all duration-1000 ease-out`}
               style={{ width: `${participationPercentage}%` }}
             />
-          </div>
-          
-          <div className="text-xs text-gray-500 text-right">
-            {Math.round(participationPercentage)}% filled
           </div>
         </div>
         
         {/* Countdown Timer */}
         {isUpcoming && (
-          <div className={`${statusConfig.bgColor} rounded-xl p-4 border border-opacity-20`}>
+          <div className={`${theme.bg} rounded-xl p-3 ${theme.border} border`}>
             <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <Clock className={`h-4 w-4 ${statusConfig.textColor}`} />
-                <span className={`text-sm font-medium ${statusConfig.textColor}`}>Starts in</span>
+              <div className="flex items-center justify-center space-x-1 mb-1">
+                <Clock className={`h-3.5 w-3.5 ${theme.text}`} />
+                <span className={`text-xs font-medium ${theme.text}`}>Starts in</span>
               </div>
               <CountdownTimer 
                 targetDate={tournament.startTime}
-                className={`font-mono text-lg font-bold ${statusConfig.textColor}`}
+                className={`font-mono text-sm font-bold ${theme.text}`}
               />
             </div>
           </div>
         )}
         
-        {/* Dynamic Join Button */}
+        {/* Join Button */}
         <Button
-          className={`w-full h-12 font-bold text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 ${
+          className={`w-full h-10 font-bold text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 rounded-xl ${
             tournament.status === 'live' 
-              ? 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 hover:scale-105'
+              ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 hover:scale-105 animate-pulse'
               : tournament.status === 'upcoming'
-              ? 'bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 hover:scale-105'
-              : 'bg-gradient-to-r from-gray-400 to-slate-400 cursor-not-allowed'
-          } ${isHovered && !isFull && isUpcoming ? 'animate-pulse' : ''}`}
+              ? `bg-gradient-to-r ${theme.primary} hover:scale-105 hover:shadow-2xl ${theme.neon}`
+              : 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed'
+          } ${isHovered && !isFull && isUpcoming ? 'animate-bounce' : ''}`}
           onClick={handleJoin}
           disabled={
             !isUpcoming || 
@@ -286,36 +337,36 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
         >
           {isJoining || joinTournamentMutation.isPending ? (
             <div className="flex items-center justify-center space-x-2">
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-              <span>Joining...</span>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              <span className="text-sm">Joining...</span>
             </div>
           ) : isFull ? (
             <div className="flex items-center justify-center space-x-2">
-              <Users className="h-5 w-5" />
-              <span>Tournament Full</span>
+              <Users className="h-4 w-4" />
+              <span className="text-sm">FULL</span>
             </div>
           ) : tournament.status === 'live' ? (
             <div className="flex items-center justify-center space-x-2">
-              <Zap className="h-5 w-5" />
-              <span>Join Live Battle</span>
+              <Zap className="h-4 w-4" />
+              <span className="text-sm font-bold tracking-wider">JOIN LIVE</span>
             </div>
           ) : tournament.status === 'upcoming' ? (
             <div className="flex items-center justify-center space-x-2">
-              <Trophy className="h-5 w-5" />
-              <span>Join Tournament</span>
+              <Flame className="h-4 w-4" />
+              <span className="text-sm font-bold tracking-wider">JOIN NOW</span>
             </div>
           ) : (
             <div className="flex items-center justify-center space-x-2">
-              <Award className="h-5 w-5" />
-              <span>Tournament Ended</span>
+              <Award className="h-4 w-4" />
+              <span className="text-sm">ENDED</span>
             </div>
           )}
         </Button>
         
-        {/* Floating action indicator */}
+        {/* Floating notification dot */}
         {isUpcoming && !isFull && (
-          <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${statusConfig.color} animate-ping`} />
+          <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${theme.secondary} animate-ping`} />
           </div>
         )}
       </CardContent>
