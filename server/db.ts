@@ -1,9 +1,6 @@
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
+import { Pool } from 'pg';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from "@shared/schema";
-
-neonConfig.webSocketConstructor = ws;
 
 if (!process.env.DATABASE_URL) {
   throw new Error(
@@ -11,18 +8,13 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-// Validate database URL format
-const dbUrl = process.env.DATABASE_URL;
-if (!dbUrl.includes('postgresql://') && !dbUrl.includes('postgres://')) {
-  throw new Error("Invalid DATABASE_URL format. Expected PostgreSQL connection string.");
-}
-
+// Use regular pg Pool for better compatibility with session store
 export const pool = new Pool({ 
-  connectionString: dbUrl,
-  // Add connection configuration for better reliability
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   connectionTimeoutMillis: 5000,
   idleTimeoutMillis: 30000,
   max: 10,
 });
 
-export const db = drizzle({ client: pool, schema });
+export const db = drizzle(pool, { schema });
