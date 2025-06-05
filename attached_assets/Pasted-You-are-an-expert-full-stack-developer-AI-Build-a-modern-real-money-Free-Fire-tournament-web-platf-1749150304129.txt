@@ -1,0 +1,156 @@
+You are an expert full-stack developer AI. Build a modern, real-money Free Fire tournament web platform named **Fire Fight**, with two main web portals:
+
+1. **User Website (players)**
+2. **Admin Dashboard (management)**
+
+---
+
+## 🔥 FIRE FIGHT OVERVIEW
+
+**Purpose**: Let Free Fire players join paid tournaments, receive room codes, play matches, and earn real cash prizes.
+
+**Technology Stack**:
+- Frontend: React (with Tailwind CSS), or Next.js
+- Backend: Supabase (Auth, DB, Storage, Realtime)
+- Notifications: Firebase Cloud Messaging
+- Payments: Razorpay or Paytm
+- Hosting: Vercel
+
+---
+
+## 🧑‍🎮 USER WEBSITE – PAGES & FEATURES
+
+### 1. Home / Dashboard
+- Hero banner slider
+- Featured tournaments
+- Leaderboard preview
+- Call to action: Join now, Invite & Earn
+- Bottom nav: Home, Tournaments, Wallet, My Matches, Profile
+
+### 2. Tournaments Explorer
+- Tabs: All, Upcoming, Live, Completed
+- Tournament card: game image, title, entry fee, prize, time
+- Filters: Game mode, prize, fee
+- Button: Join Now
+
+### 3. Tournament Details
+- Rules, Room Code (after join), participants
+- Join Match button
+
+### 4. My Tournaments
+- Tabs: Upcoming, Live, Completed
+- Status: Room Code, Team info, result
+
+### 5. Team Page
+- Create / Join team
+- View team info, invite player, leave team
+
+### 6. Wallet Page
+- Add money (Razorpay/UPI)
+- Withdraw (UPI, Paytm)
+- Transaction history
+
+### 7. Leaderboard
+- Filters: Daily, Weekly, All-Time
+- Solo / Team stats
+
+### 8. Profile
+- Free Fire UID, avatar, stats
+- Referral code
+- Edit profile
+
+### 9. Login/Register
+- OTP login via phone (Supabase or Firebase)
+- Optional Google sign-in
+
+### 10. Notifications
+- Match updates, room codes, results
+
+### 11. Help / Support
+- FAQ, report problem, contact
+
+---
+
+## 🔐 ADMIN DASHBOARD – PAGES & FEATURES
+
+### 1. Dashboard
+- Stats: Users, Tournaments, Revenue
+- Live Matches
+- Quick Create: Tournament, Room Code
+
+### 2. Tournament Manager
+- Create/edit/delete tournaments
+- Set match time, entry fee, prize, max players
+- Lock room, close match
+- Assign players
+
+### 3. Room Code Manager
+- Assign room ID/password
+- Reveal to players at scheduled time
+
+### 4. User Manager
+- View/edit users
+- Ban/unban
+- Reset password
+- KYC check
+
+### 5. Team Manager
+- View team info
+- Remove teams
+- View history
+
+### 6. Wallet Manager
+- View transactions
+- Add/remove funds
+- Approve/reject withdrawals
+- Track earnings
+
+### 7. Results Manager
+- Enter kills, rank, points
+- Auto calculate payout
+- Approve results, distribute prize
+
+### 8. Notifications
+- Send push or banner notifications to users
+- Filter by user, match, team
+
+### 9. Reports & Analytics
+- Revenue reports
+- Player stats
+- Match trends
+
+### 10. Settings
+- Referral rules
+- Commission percentage
+- Withdrawal limits
+- Game rules editor
+- Maintenance mode
+
+---
+
+## SYSTEM-WIDE FEATURES
+
+- Realtime updates with Supabase
+- Push notifications with Firebase
+- Secure Supabase Auth
+- Mobile responsive design
+- Tournament time countdowns
+- Prize pool logic: Entry Fee × Players – Commission
+
+---
+
+## OUTPUT
+
+Generate:
+- All UI Pages (responsive, beautiful, fast)
+- Dynamic components (modals, forms, popups)
+- Supabase schema (users, matches, teams, payments, results)
+- API endpoints (join match, fetch code, withdraw, etc.)
+- Full Admin Dashboard
+- Payment integration
+- Notification system
+- Deployment-ready code for Vercel + Supabase
+
+Name the app: **Fire Fight**
+Use theme: Dark mode gaming style with neon highlights.
+

@@ -1,0 +1,235 @@
+🧑‍🎮 USER FEATURES – Full List
+Regular users should be able to:
+
+🏆 1. Join Tournaments
+Browse upcoming tournaments
+
+Filter by type: Solo, Duo, Squad, Custom
+
+See prize pool, entry fee, players joined
+
+Join instantly using wallet balance
+
+📅 2. View Match Details
+View match rules and prize breakdown
+
+Match countdown timer
+
+Room ID & Password unlock before match
+
+In-app match instructions
+
+📜 3. My Matches (Live History)
+Track Upcoming / Live / Completed matches
+
+Check room codes, teams
+
+View results: kills, rank, prize earned
+
+👥 4. Create / Join Team
+Create custom team (set logo, name)
+
+Invite teammates via code or UID
+
+Manage players, set leader
+
+Join Duo/Squad matches with team
+
+💰 5. Wallet System
+Add cash (manual with QR method or later UPI integration)
+
+Withdraw winnings (manual with admin approval)
+
+View full transaction history
+
+Wallet balance indicator on all pages
+
+🧾 6. Payment with Manual QR Upload
+Left: Show platform QR code
+
+Right: User uploads screenshot of payment
+
+Admin approval system (wallet updated manually)
+
+🥇 7. Leaderboard
+Daily, Weekly, All-Time
+
+Solo, Duo, Squad views
+
+Filter by kills, rank, win ratio, income
+
+📊 8. Match Stats & Winnings Tracker
+Track total matches joined
+
+Total kills, rank stats
+
+Total earnings (withdrawable)
+
+📤 9. Referrals & Rewards
+Unique referral code
+
+Invite friends = bonus wallet cash
+
+Track number of referrals and income
+
+🧑‍💼 10. Profile Management
+Avatar, Free Fire UID, nickname
+
+Edit profile
+
+Upload KYC documents (optional for withdrawals)
+
+🔔 11. Notifications
+Real-time match updates
+
+Room code drop
+
+Win announcement & payout notification
+
+❓ 12. Help & Support
+FAQ, chat support
+
+Report match issues (attach screenshots)
+
+Contact admin team
+
+🔐 ADMIN FEATURES – Full List
+Admin panel must allow:
+
+🎮 1. Create & Manage Tournaments
+Match type: 1v1, Duo, Squad, Battle Royale
+
+Entry fee, prize, max players
+
+Game rules & timings
+
+Assign or auto-generate Room Code & Password
+
+Lock/close tournament manually
+
+📥 2. Room Code Control
+Add Room ID & Password
+
+Schedule time for auto reveal
+
+Mark as "Sent", "Played", "Delayed"
+
+🧑‍💼 3. User Management
+View all users and teams
+
+Approve or reject KYC docs
+
+Ban, warn, or reset users
+
+View user stats, wallet, match history
+
+🛡️ 4. Manual Payment Approval System
+View uploaded payment screenshots
+
+Match with admin QR side (left/right view)
+
+Approve and credit wallet manually
+
+💵 5. Withdrawal Management
+View withdrawal requests
+
+UPI/Paytm details from user
+
+Approve or reject
+
+Manual payment completion logging
+
+📊 6. Results & Prize Distribution
+Enter kills, rank, auto calculate prizes
+
+Auto split based on logic or manual edit
+
+Distribute earnings to wallet
+
+Flag suspicious users or results
+
+📢 7. Notification Management
+Send push or in-app notifications
+
+Target all, specific users, or tournament group
+
+📈 8. Reports & Analytics
+Tournaments by day/week
+
+Player performance
+
+Revenue breakdown
+
+Active vs inactive users
+
+Entry fee income vs payouts
+
+⚙️ 9. Platform Settings
+Edit rules, about, terms, privacy
+
+Set wallet limits
+
+Edit commission % on earnings
+
+Maintenance mode toggle
+
+📁 10. CMS & Help System
+FAQ manager
+
+Add/edit static pages
+
+Admin notes per user or tournament
+
+💳 PAYMENT INTEGRATION – Manual QR Workflow
+User Side:
+Left side shows Fire Fight's QR Code (admin uploads or generates)
+
+Right side shows upload form for screenshot of completed payment
+
+Fields: Amount, Payment Method (UPI/Paytm), UPI Number (Optional)
+
+"Submit Payment Proof" button
+
+Admin Side:
+Payment Verifications list
+
+Screenshot preview + timestamp
+
+User name, amount, UPI
+
+Buttons: ✅ Approve → Credit Wallet | ❌ Reject
+
+➡ Later upgrade: Razorpay, Paytm for Business, Cashfree integration
+
+🧩 TOURNAMENT TYPES
+Offer all major Free Fire formats:
+
+✅ 1. Solo
+1 player vs 49 others
+
+Points by rank + kills
+
+✅ 2. Duo
+2-player team
+
+Shared kills, joint rank payout
+
+✅ 3. Squad
+4-player teams
+
+Shared rank, kill split possible
+
+✅ 4. Custom 1v1 Rooms
+Room hosted with 2 players
+
+Winner takes all
+
+Use 1v1 kill format or Bo3
+
+✅ 5. Battle Royale Custom Rooms
+Full lobby
+
+Invite via UID or Auto-Fill
+
+Up to 50 players
+

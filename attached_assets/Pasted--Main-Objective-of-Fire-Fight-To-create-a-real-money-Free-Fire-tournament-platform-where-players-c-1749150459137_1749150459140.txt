@@ -1,0 +1,153 @@
+🎯 Main Objective of Fire Fight
+To create a real-money Free Fire tournament platform where players can:
+
+Join competitive matches using real cash,
+
+Receive in-game room codes,
+
+Compete, track match results, and win real money,
+
+With full management control via an admin panel.
+
+The goal is to provide a fair, exciting, and scalable eSports experience for Free Fire players in India and beyond.
+
+🧑‍🎮 Core Features for Users
+✅ User Account & Profile
+OTP Login with phone number
+
+Free Fire UID link
+
+Referral system with earnings
+
+Profile dashboard with match stats
+
+✅ Tournaments
+Browse and join upcoming tournaments
+
+Match types: Solo, Duo, Squad
+
+Entry fee & prize pool system
+
+Real-time match countdown
+
+Receive Room ID and Password (private)
+
+See live and past match results
+
+✅ My Matches
+Track status: Upcoming / Live / Completed
+
+Room code unlock on time
+
+View team members (if team joined)
+
+View match result: kills, rank, payout
+
+✅ Team System
+Create/join teams
+
+Manage members (invite/kick)
+
+Team-based match participation
+
+Team stats and history
+
+✅ Wallet System
+Add money via Razorpay/UPI
+
+Withdraw winnings (KYC-based)
+
+Transaction history log
+
+✅ Leaderboard & Achievements
+Daily, weekly, all-time
+
+Top kills, wins, earnings
+
+Rank badges and achievements
+
+✅ Notifications & Support
+Room code alerts, result updates
+
+Contact support or report issues
+
+FAQ section
+
+🔐 Core Features for Admin
+✅ Tournament Management
+Create/edit/delete tournaments
+
+Set entry fee, prize pool, slots, match type
+
+Assign Room Code + Password
+
+Close matches and lock rooms
+
+✅ User Management
+View/edit user details
+
+Ban/unban users
+
+KYC status & approval
+
+Reset or verify accounts
+
+✅ Team Management
+View all teams
+
+Disband or ban teams
+
+See team history
+
+✅ Match Results
+Enter kills, rank, auto-payout calculation
+
+Upload proof/screenshots if needed
+
+Finalize and mark match complete
+
+✅ Wallet Oversight
+View all transactions
+
+Approve/reject withdrawal requests
+
+Manually adjust wallet balances
+
+Set payout rules (minimum amount, delay time)
+
+✅ Reports & Analytics
+Revenue tracking
+
+Entry fee vs payout chart
+
+Top-performing players
+
+Fraud or abuse detection alerts
+
+✅ Notifications
+Broadcast messages to all or selected users
+
+Push updates about room codes, delays, changes
+
+✅ Settings
+Site configurations (commission %, reward settings)
+
+Game rules
+
+Terms & privacy page editor
+
+Maintenance toggle
+
+🎨 Styling & Branding Requirements
+Theme: Dark mode with neon highlights (gaming aesthetic)
+
+Color Palette: Black, deep gray, neon green, neon blue, red accents
+
+Typography: Bold, sharp fonts (e.g., Orbitron or Barlow)
+
+Logo: “Fire Fight” — fiery bold type with Free Fire theme influence
+
+Mobile-First Design: Clean UI for both low-end and gaming phones
+
+Responsive Layout: Fully mobile and desktop optimized
+

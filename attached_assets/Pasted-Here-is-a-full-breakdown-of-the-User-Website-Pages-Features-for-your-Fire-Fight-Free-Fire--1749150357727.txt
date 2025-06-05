@@ -1,0 +1,233 @@
+Here is a full breakdown of the **User Website – Pages & Features** for your **Fire Fight Free Fire Tournament platform**, designed for a smooth, exciting, and professional user experience.
+
+---
+
+## 🔥 Fire Fight – User Website Pages & Features
+
+---
+
+### 1. 🏠 **Home / Dashboard Page**
+
+**Components:**
+
+* Hero Slider (featured tournaments or promotions)
+* Quick Actions (Join Tournament, Create Team, Add Wallet)
+* Featured Tournaments (horizontal scroll cards)
+* Daily Rewards / Referral CTA
+* Leaderboard Preview (Top 5 Players)
+* Latest Updates / Announcements
+
+**Design Notes:**
+
+* Vibrant UI with animated transitions
+* Game-themed colors (dark background with neon highlights)
+
+---
+
+### 2. 🎯 **Tournaments Explorer Page**
+
+**Tabs:** `All` | `Upcoming` | `Live` | `Completed`
+
+**Features:**
+
+* Tournament Card:
+
+  * Game Image
+  * Title
+  * Entry Fee
+  * Prize Pool
+  * Match Type (Solo/Duo/Squad)
+  * Time Countdown
+  * Status: Join Now / Full / Live / Closed
+* Filters:
+
+  * Entry Fee Range
+  * Type (Solo, Duo, Squad)
+  * Prize Amount
+  * Status
+* Search Bar
+
+---
+
+### 3. 📃 **Tournament Details Page**
+
+**Sections:**
+
+* Tournament Banner + Timer
+* Info:
+
+  * Type, Time, Slots, Entry Fee, Prize Pool
+  * Rules & Scoring System
+  * Room Code (only visible after joining)
+* Button: `Join Now`
+
+  * Check wallet balance before join
+* Participants List (avatars or IGN)
+
+---
+
+### 4. 👥 **Team Page**
+
+**If No Team:**
+
+* Create Team (Name, Logo, Free Fire ID)
+* Or Join via Invite Code
+
+**If In Team:**
+
+* Show Team Info (name, logo, code)
+* Team Leader & Members List
+* Buttons:
+
+  * Invite Member
+  * Leave Team (if not leader)
+  * Edit Team
+
+**Additional:**
+
+* View Team Tournament History
+* Join Tournament as Team
+
+---
+
+### 5. 🧑‍🤝‍🧑 **My Tournaments Page**
+
+**Tabs:** `Upcoming` | `Live` | `Results`
+
+**Each Match Card Shows:**
+
+* Title, Time, Type
+* Room Code & Password (when available)
+* Teammates / Solo status
+* Result (Kills, Points, Rank)
+* Status: Joined, In Progress, Completed
+
+---
+
+### 6. 💰 **Wallet Page**
+
+**Sections:**
+
+* Current Balance
+* Add Cash (via Razorpay/Paytm/UPI)
+* Withdraw Funds (via UPI/Paytm)
+* Transaction History (filter by type)
+* Entry fee, rewards, add money, withdrawal
+
+**Security:**
+
+* Require KYC for withdrawals
+
+---
+
+### 7. 🏆 **Leaderboard Page**
+
+**Tabs:** `Daily` | `Weekly` | `All-Time`
+
+**Types:**
+
+* Solo Leaderboard
+* Team Leaderboard
+* Highest Earnings
+* Most Wins
+
+**Each Card:**
+
+* Player/Team Name
+* Avatar / Logo
+* Rank, Kills, Wins, Earnings
+
+---
+
+### 8. 🔐 **Login / Register Page**
+
+**Features:**
+
+* Phone Number + OTP (via Firebase or Supabase)
+* Optional Google Login
+* Referral Code (optional)
+* Terms & Conditions checkbox
+
+---
+
+### 9. 🧾 **Profile & Settings Page**
+
+**Details:**
+
+* Avatar
+* Username & Mobile
+* Free Fire UID / IGN
+* Referral Code & Earnings
+* Edit Profile Button
+* Logout Button
+
+---
+
+### 10. 📢 **Notifications Page**
+
+**List:**
+
+* New Tournament Announcements
+* Room Code Updates
+* Match Results
+* Promotions / Offers
+
+---
+
+### 11. 📞 **Support / Help Page**
+
+**Sections:**
+
+* FAQ List (Expandable)
+* Live Chat / Support Ticket Form
+* Report Problem (tournament ID + issue)
+
+---
+
+### 12. 🎁 **Rewards / Referral Page**
+
+**Sections:**
+
+* Invite Friends (get ₹X per signup)
+* Copy & Share Referral Link
+* Earn Coins / Cash for Milestones
+* Claim Rewards
+
+---
+
+### 13. 🎮 **Game Stats Page** *(optional)*
+
+* Show your lifetime stats
+* Tournaments Played, Kills, Wins, Earnings
+* Visual Charts or Graphs
+
+---
+
+### 14. ⚙️ **Settings Page**
+
+* Notification Preferences
+* Linked Accounts (Google/Email)
+* Language
+* Help & Support Link
+* Logout
+
+---
+
+## 🧪 Bonus Ideas
+
+* **Dark Mode Toggle**
+* **PWA Support** for app-like experience on mobile
+* **Gamification** badges, rank levels
+* **Live Chat Room** for players before a match
+* **Progress Bar** for reward milestones
+
+---
+
+## ✅ Want Next?
+
+* ✅ Full UI/UX wireframes for all screens
+* ✅ Supabase schema for user side
+* ✅ React (or React Native) page structure and code base
+* ✅ Responsive website layout with Tailwind CSS
+
+Let me know what part you’d like next.

@@ -1,0 +1,286 @@
+🔐 Fire Fight – Admin Website (Full Pages & Features)
+🧭 1. Admin Dashboard (Overview)
+Widgets:
+
+Total Users
+
+Total Tournaments
+
+Total Matches Played
+
+Total Revenue
+
+Pending Withdrawals
+
+Recent Transactions
+
+Latest Joined Matches
+
+Live Matches (with room status)
+
+Actions:
+
+Quick Create Tournament
+
+Quick Add Room Code
+
+Broadcast Notification
+
+🎮 2. Tournament Management Page
+Features:
+
+View All Tournaments (Table with pagination)
+
+Search & Filter: Game Type, Status, Date
+
+Create Tournament:
+
+Title, Game Type (Solo/Duo/Squad)
+
+Entry Fee
+
+Prize Pool
+
+Max Players
+
+Match Date/Time
+
+Rules
+
+Edit / Delete Tournament
+
+Clone Existing Tournament
+
+Enable/Disable Joining
+
+Lock Room (after full)
+
+🔑 3. Room Code Management
+Features:
+
+Assign Room ID + Password to tournament
+
+Auto room reveal timer
+
+Mark Room Status (pending, sent, full)
+
+Manual message / resend to players
+
+🧑‍💼 4. User Management
+Features:
+
+List All Users
+
+Name, Mobile, Email, FF UID, Wallet Balance
+
+Search Users
+
+Filter: KYC Status, Wallet Balance, Joined Matches
+
+View User Profile:
+
+Past Matches
+
+Team Joined
+
+Wallet History
+
+Ban / Unban Users
+
+Reset Password / Reverify
+
+💸 5. Wallet & Payments Management
+Features:
+
+All Wallet Transactions
+
+Add Cash
+
+Entry Fee Deductions
+
+Match Rewards
+
+Withdrawals
+
+Approve/Reject Withdrawals
+
+UPI ID / Paytm No.
+
+View Transaction Receipt (if needed)
+
+Manual Adjustments (+ / - Balance)
+
+Wallet Limits / Rules Settings
+
+🧾 6. Withdrawal Requests
+Sections:
+
+Pending
+
+Completed
+
+Rejected
+
+Each Request Shows:
+
+User Info
+
+Amount
+
+Payment Method (UPI / Paytm)
+
+Timestamp
+
+Buttons: ✅ Approve | ❌ Reject
+
+🏆 7. Match Results Management
+Features:
+
+Select Completed Tournament
+
+Add Player Results (Kills, Rank, Total Points)
+
+Auto Calculate Winners
+
+Approve & Distribute Winnings
+
+Mark Match as Complete
+
+View Result Summary Table
+
+👥 8. Team Management
+Features:
+
+View All Teams
+
+Team Name, Code, Members Count
+
+Search by Leader or Member UID
+
+Team Details Page:
+
+Members, Matches Joined, Wins
+
+Delete / Flag / Ban Team
+
+Reset Team
+
+🧑‍🔧 9. KYC / Verification Center
+Features:
+
+List of Users with Pending KYC
+
+Document Upload View
+
+Accept / Reject KYC
+
+Request Re-upload
+
+📢 10. Broadcast Notifications
+Features:
+
+Send Notification to:
+
+All Users
+
+Specific Tournament Players
+
+Specific User/Team
+
+Compose Title + Body
+
+Optional Deep Link (to match, page, etc.)
+
+Schedule Send (date/time)
+
+📋 11. Reports & Analytics
+Reports Available:
+
+Daily/Weekly Revenue
+
+Match Participation Trends
+
+Top Players & Teams
+
+Withdrawal Stats
+
+Wallet Growth Chart
+
+Entry Fee Earnings by Match Type
+
+⚙️ 12. Settings & Configurations
+Features:
+
+General Site Settings (Logo, Name)
+
+Game Rules Editor
+
+Commission Percentage (Admin Cut)
+
+Referral Reward Settings
+
+Auto Prize Distribution Toggle
+
+Maintenance Mode
+
+Support Contacts
+
+🗃️ 13. Support / Tickets System
+Features:
+
+View User Reports / Issues
+
+Assign to Support Staff
+
+Respond to Tickets
+
+Close / Escalate
+
+🔐 14. Admin Account Management
+Features:
+
+Manage Admins / Roles
+
+Permissions (Super Admin, Support Admin)
+
+Activity Logs (who did what & when)
+
+Secure Login Logs
+
+Change Passwords
+
+📝 15. CMS Pages / Static Content (Optional)
+Pages Editable:
+
+About Us
+
+Terms & Conditions
+
+Privacy Policy
+
+FAQ / Help
+
+🧪 Bonus Admin Features (Future Enhancements)
+🔎 Search & Export Tournament Results
+
+🌐 Multi-language Admin Panel
+
+📲 Push to App (Firebase Notifications)
+
+💬 Internal Team Chat for Staff
+
+🧠 AI-Powered Anti-Cheat Detector (basic version)
+
+🔧 Admin Tech Stack (Recommended)
+Frontend: React + Tailwind Admin UI (or Next.js)
+
+Backend: Supabase / Firebase / Node.js
+
+Database: PostgreSQL (Supabase)
+
+Authentication: Supabase Auth / Firebase Auth
+
+Payments: Razorpay / Paytm for Business
+
+Notifications: Firebase Cloud Messaging
+
