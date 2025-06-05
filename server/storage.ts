@@ -105,11 +105,13 @@ export class DatabaseStorage implements IStorage {
 
   // Tournament operations
   async getTournaments(status?: string): Promise<Tournament[]> {
-    let query = db.select().from(tournaments);
     if (status) {
-      query = query.where(eq(tournaments.status, status));
+      return await db.select().from(tournaments)
+        .where(eq(tournaments.status, status))
+        .orderBy(desc(tournaments.startTime));
     }
-    return await query.orderBy(desc(tournaments.startTime));
+    return await db.select().from(tournaments)
+      .orderBy(desc(tournaments.startTime));
   }
 
   async getTournament(id: string): Promise<Tournament | undefined> {
@@ -255,11 +257,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getPaymentProofs(status?: string): Promise<PaymentProof[]> {
-    let query = db.select().from(paymentProofs);
     if (status) {
-      query = query.where(eq(paymentProofs.status, status));
+      return await db.select().from(paymentProofs)
+        .where(eq(paymentProofs.status, status))
+        .orderBy(desc(paymentProofs.createdAt));
     }
-    return await query.orderBy(desc(paymentProofs.createdAt));
+    return await db.select().from(paymentProofs)
+      .orderBy(desc(paymentProofs.createdAt));
   }
 
   async updatePaymentProofStatus(
@@ -330,7 +334,7 @@ export class DatabaseStorage implements IStorage {
     return await db
       .select()
       .from(notifications)
-      .where(or(eq(notifications.userId, userId), eq(notifications.userId, null)))
+      .where(eq(notifications.userId, userId))
       .orderBy(desc(notifications.createdAt))
       .limit(50);
   }
