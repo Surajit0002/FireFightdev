@@ -1,0 +1,122 @@
+You are an expert UI/UX designer and frontend engineer. Create a modern, advanced, and dynamic “Create New Tournament” modal form for an admin dashboard of a Free Fire cash tournament platform called “Fire Fight.” This modal is used to add new tournaments with rich content and automation.
+
+🟢 Component: Create Tournament Modal (Popup or Fullscreen on mobile)
+Triggered by: [ + Create New Tournament ] button in admin dashboard
+
+Should slide in or pop up with animated transition
+
+Fullscreen on mobile, centered modal on desktop
+
+Dark semi-transparent background, white modal card with solid neon border
+
+Multistep or tabbed design is optional but desirable
+
+📋 Modal Sections & Fields
+🏷️ General Info
+Tournament Title (text input)
+
+Game Mode (Dropdown: Solo, Duo, Squad, 1v1)
+
+Platform (Dropdown: Mobile, Emulator)
+
+Max Players (e.g., 50)
+
+Entry Fee (INR)
+
+Prize Pool (INR)
+
+Tournament Banner Upload (image input)
+
+Live preview on upload
+
+Accepts PNG, JPG
+
+🗓️ Date & Time
+Tournament Date (date picker)
+
+Start Time (time picker)
+
+Room Code Reveal Time (optional: auto = 5 mins before match)
+
+🌍 Match Info
+Map Selection (Dropdown: Bermuda, Kalahari, Purgatory, Alpine)
+
+Match Format (Dropdown: Classic, Clash Squad, Custom Room)
+
+Spectator Allowed (Yes/No toggle)
+
+Auto Join Limit Lock (Enable/Disable switch)
+
+📜 Rules & Description
+Tournament Rules (multi-line rich text box)
+
+Example: No Emulators, No Hacks, Kills Counted, UID Must Match
+
+Prize Breakdown (multi-input for 1st, 2nd, 3rd)
+
+Auto-calculates total or allows manual override
+
+🧩 Advanced Settings (Expandable Section)
+Auto Room ID/Password Input (toggle)
+
+Custom Join Instructions (optional)
+
+Enable Live Match Countdown Timer
+
+Auto Prize Distribution (Yes/No switch)
+
+🎨 Styling & UI
+Use solid dark backgrounds with neon/glow UI styles
+
+Rounded corners, soft drop shadows
+
+Inputs should be clean, modern, and colorful
+
+Use status tags: “Published”, “Draft”, “Upcoming”
+
+Add success/error toasts on form actions
+
+Sticky top bar inside modal with “Save”, “Cancel” buttons
+
+🧠 Automation
+On “Prize Breakdown” inputs: Auto sum and match to Prize Pool
+
+On image upload: Show live preview
+
+If Entry Fee is 0: Show “Free Entry” badge
+
+Auto-generate internal Match ID
+
+📦 Final Output
+When “Save Tournament” is clicked:
+
+Validate all fields
+
+Upload image to storage (e.g., Supabase or Firebase)
+
+Save data to database
+
+Return success modal or toast with redirect option
+
+📱 Responsive Design
+Mobile-first layout
+
+Fields stacked vertically on phones
+
+Responsive modal resizing for tablets/desktops
+
+Use swipe or tab view for multistep mobile experience
+
+✅ Output Expectations
+Dynamic, multisection modal form
+
+Fully styled with dark gaming theme
+
+Auto-field features (like image preview, auto calculation)
+
+Responsive layout
+
+Clean save + cancel UX
+
+Uploads images + handles state
+
