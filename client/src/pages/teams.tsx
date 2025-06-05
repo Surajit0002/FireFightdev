@@ -49,51 +49,65 @@ export default function Teams() {
       <Navbar />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center mb-8">
-          <h1 className="font-orbitron text-4xl font-bold mb-4">Team Management</h1>
-          <p className="text-muted-foreground text-lg">Create or join teams for Duo and Squad tournaments</p>
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+              <Users className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="font-orbitron text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+              Team Management
+            </h1>
+          </div>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Create or join teams for Duo and Squad tournaments. Team up with skilled players to dominate the battlefield
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          {/* Create Team */}
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle className="flex items-center neon-green">
-                <Plus className="mr-2 h-5 w-5" />
+        {/* Create Team Section */}
+        <div className="mb-12">
+          <Card className="bg-gradient-to-br from-card to-card/80 border-border/50 backdrop-blur-sm shadow-xl">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center text-2xl font-bold">
+                <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
+                  <Plus className="w-4 h-4 text-white" />
+                </div>
                 Create New Team
               </CardTitle>
+              <p className="text-muted-foreground">Start building your squad for competitive play</p>
             </CardHeader>
             <CardContent>
               <CreateTeamForm />
             </CardContent>
           </Card>
+        </div>
 
-          {/* My Teams */}
-          <Card className="bg-card border-border lg:col-span-2">
-            <CardHeader>
-              <CardTitle className="flex items-center neon-blue">
-                <Users className="mr-2 h-5 w-5" />
-                My Teams
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {teams && teams.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {teams.map((team: any) => (
-                    <TeamCard key={team.id} team={team} />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <Users className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">No teams yet</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Create your first team to join duo and squad tournaments
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+        {/* My Teams Section */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <Users className="w-4 h-4 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold">My Teams</h2>
+          </div>
+          
+          {Array.isArray(teams) && teams.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {teams.map((team: any) => (
+                <TeamCard key={team.id} team={team} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl flex items-center justify-center">
+                <Users className="w-10 h-10 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">No teams yet</h3>
+              <p className="text-muted-foreground max-w-md mx-auto">
+                Create your first team to join duo and squad tournaments. Build your squad and compete for bigger prizes
+              </p>
+            </div>
+          )}
         </div>
       </main>
     </div>
