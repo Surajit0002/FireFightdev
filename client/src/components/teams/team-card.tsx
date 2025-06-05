@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Shield, Users, Settings, LogOut, Crown, MoreVertical, Eye, Edit, Trash2, UserPlus } from "lucide-react";
+import { Shield, Users, Crown, MoreVertical, Eye, Edit, Trash2, UserPlus } from "lucide-react";
 
 interface TeamCardProps {
   team: {
@@ -32,24 +32,27 @@ export default function TeamCard({ team, userRole = "member" }: TeamCardProps) {
     switch (type.toLowerCase()) {
       case 'duo':
         return {
-          bgColor: 'from-blue-100 to-blue-200',
-          borderColor: 'border-blue-300',
-          textColor: 'text-blue-800',
-          badgeColor: 'bg-blue-500 text-white'
+          bgGradient: 'from-blue-500/20 via-blue-400/10 to-cyan-500/20',
+          borderColor: 'border-blue-400/30',
+          textColor: 'text-blue-100',
+          badgeColor: 'bg-blue-500/80 text-white',
+          iconColor: 'text-blue-400'
         };
       case 'squad':
         return {
-          bgColor: 'from-purple-100 to-purple-200',
-          borderColor: 'border-purple-300',
-          textColor: 'text-purple-800',
-          badgeColor: 'bg-purple-500 text-white'
+          bgGradient: 'from-purple-500/20 via-purple-400/10 to-pink-500/20',
+          borderColor: 'border-purple-400/30',
+          textColor: 'text-purple-100',
+          badgeColor: 'bg-purple-500/80 text-white',
+          iconColor: 'text-purple-400'
         };
       default:
         return {
-          bgColor: 'from-gray-100 to-gray-200',
-          borderColor: 'border-gray-300',
-          textColor: 'text-gray-800',
-          badgeColor: 'bg-gray-500 text-white'
+          bgGradient: 'from-gray-500/20 via-gray-400/10 to-slate-500/20',
+          borderColor: 'border-gray-400/30',
+          textColor: 'text-gray-100',
+          badgeColor: 'bg-gray-500/80 text-white',
+          iconColor: 'text-gray-400'
         };
     }
   };
@@ -59,115 +62,106 @@ export default function TeamCard({ team, userRole = "member" }: TeamCardProps) {
   // Mock member data for profile pics
   const mockMembers = Array.from({ length: memberCount }, (_, i) => ({
     id: `member-${i}`,
-    name: `Player ${i + 1}`,
+    name: `P${i + 1}`,
     avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=player${i + 1}`
   }));
 
   return (
-    <Card className={`bg-gradient-to-br ${typeConfig.bgColor} ${typeConfig.borderColor} border-2 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}>
-      <CardContent className="p-5">
-        {/* Header with logo/info left, menu right */}
-        <div className="flex items-start justify-between mb-4">
-          {/* Left side - Logo and team info */}
-          <div className="flex items-center space-x-4">
-            <Avatar className="h-14 w-14 border-3 border-white shadow-lg">
+    <Card className={`bg-gradient-to-br ${typeConfig.bgGradient} ${typeConfig.borderColor} border backdrop-blur-sm hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1 w-full max-w-sm`}>
+      <CardContent className="p-4">
+        {/* Header */}
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center space-x-3 min-w-0 flex-1">
+            <Avatar className="h-10 w-10 border-2 border-white/20 shadow-md">
               <AvatarImage src={team.logoUrl} />
-              <AvatarFallback className="bg-white text-gray-700 font-bold">
-                <Shield className="h-7 w-7" />
+              <AvatarFallback className="bg-dark-card text-foreground">
+                <Shield className={`h-5 w-5 ${typeConfig.iconColor}`} />
               </AvatarFallback>
             </Avatar>
             
-            <div className="space-y-1">
-              <div className="flex items-center space-x-2">
-                <h4 className={`font-bold text-lg ${typeConfig.textColor}`}>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center space-x-1">
+                <h4 className={`font-bold text-sm ${typeConfig.textColor} truncate`}>
                   {team.name}
                 </h4>
-                {isLeader && <Crown className="h-5 w-5 text-yellow-600" />}
+                {isLeader && <Crown className="h-3 w-3 text-yellow-400 flex-shrink-0" />}
               </div>
-              
-              <p className={`text-sm font-medium ${typeConfig.textColor} opacity-80`}>
+              <p className={`text-xs ${typeConfig.textColor} opacity-80`}>
                 {team.type.charAt(0).toUpperCase() + team.type.slice(1)} Team
               </p>
-              
-              <div className="flex items-center space-x-3">
-                <Badge className={typeConfig.badgeColor}>
-                  {isLeader ? "LEADER" : "MEMBER"}
-                </Badge>
-                <Badge variant={team.isActive ? "default" : "secondary"} className="bg-white text-gray-700">
-                  {team.isActive ? "Active" : "Inactive"}
-                </Badge>
-              </div>
             </div>
           </div>
 
-          {/* Right side - 3 dot menu */}
+          {/* 3 dot menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/20">
-                <MoreVertical className="h-4 w-4" />
+              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 hover:bg-white/10">
+                <MoreVertical className="h-3 w-3" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-40">
-              <DropdownMenuItem className="cursor-pointer">
-                <Eye className="mr-2 h-4 w-4" />
+            <DropdownMenuContent align="end" className="w-32">
+              <DropdownMenuItem className="cursor-pointer text-xs">
+                <Eye className="mr-2 h-3 w-3" />
                 View
               </DropdownMenuItem>
               {isLeader && (
-                <DropdownMenuItem className="cursor-pointer">
-                  <Edit className="mr-2 h-4 w-4" />
+                <DropdownMenuItem className="cursor-pointer text-xs">
+                  <Edit className="mr-2 h-3 w-3" />
                   Edit
                 </DropdownMenuItem>
               )}
-              <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive">
-                <Trash2 className="mr-2 h-4 w-4" />
+              <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive text-xs">
+                <Trash2 className="mr-2 h-3 w-3" />
                 {isLeader ? "Delete" : "Leave"}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
-        {/* Member count info */}
-        <div className="flex justify-between items-center mb-4">
-          <span className={`text-sm font-medium ${typeConfig.textColor} flex items-center`}>
-            <Users className="mr-2 h-4 w-4" />
-            Members: {memberCount}/{team.maxMembers}
-          </span>
+        {/* Status badges */}
+        <div className="flex flex-wrap gap-1 mb-3">
+          <Badge className={`${typeConfig.badgeColor} text-xs px-2 py-0.5`}>
+            {isLeader ? "LEADER" : "MEMBER"}
+          </Badge>
+          <Badge variant={team.isActive ? "default" : "secondary"} className="bg-dark-card text-foreground text-xs px-2 py-0.5">
+            {team.isActive ? "Active" : "Inactive"}
+          </Badge>
         </div>
 
-        {/* Member profile pics row */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <h5 className={`text-sm font-semibold ${typeConfig.textColor}`}>Team Members</h5>
-            {memberCount < team.maxMembers && isLeader && (
-              <Button size="sm" variant="outline" className="h-7 text-xs bg-white/50 hover:bg-white/70">
-                <UserPlus className="mr-1 h-3 w-3" />
-                Add
-              </Button>
-            )}
-          </div>
-          
-          <div className="flex items-center space-x-2 overflow-x-auto pb-1">
+        {/* Member count */}
+        <div className="flex items-center justify-between mb-3">
+          <span className={`text-xs font-medium ${typeConfig.textColor} flex items-center`}>
+            <Users className="mr-1 h-3 w-3" />
+            {memberCount}/{team.maxMembers}
+          </span>
+          {memberCount < team.maxMembers && isLeader && (
+            <Button size="sm" variant="outline" className="h-6 text-xs px-2 bg-white/5 hover:bg-white/10 border-white/20">
+              <UserPlus className="mr-1 h-2 w-2" />
+              Add
+            </Button>
+          )}
+        </div>
+
+        {/* Member avatars */}
+        <div className="space-y-2">
+          <h5 className={`text-xs font-semibold ${typeConfig.textColor}`}>Members</h5>
+          <div className="flex items-center justify-center space-x-1">
             {mockMembers.map((member, index) => (
-              <div key={member.id} className="flex flex-col items-center space-y-1 min-w-0">
-                <Avatar className="h-10 w-10 border-2 border-white shadow-md">
-                  <AvatarImage src={member.avatar} />
-                  <AvatarFallback className="bg-white text-gray-600 text-xs">
-                    P{index + 1}
-                  </AvatarFallback>
-                </Avatar>
-                <span className={`text-xs font-medium ${typeConfig.textColor} truncate max-w-16`}>
+              <Avatar key={member.id} className="h-7 w-7 border border-white/20">
+                <AvatarImage src={member.avatar} />
+                <AvatarFallback className="bg-dark-card text-foreground text-xs">
                   {member.name}
-                </span>
-              </div>
+                </AvatarFallback>
+              </Avatar>
             ))}
             
             {/* Empty slots */}
             {Array.from({ length: team.maxMembers - memberCount }, (_, i) => (
-              <div key={`empty-${i}`} className="flex flex-col items-center space-y-1">
-                <div className="h-10 w-10 border-2 border-dashed border-white/60 rounded-full flex items-center justify-center bg-white/20">
-                  <UserPlus className="h-4 w-4 text-white/60" />
-                </div>
-                <span className="text-xs text-white/60">Empty</span>
+              <div 
+                key={`empty-${i}`} 
+                className="h-7 w-7 border border-dashed border-white/40 rounded-full flex items-center justify-center bg-white/5"
+              >
+                <UserPlus className="h-3 w-3 text-white/40" />
               </div>
             ))}
           </div>

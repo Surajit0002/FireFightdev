@@ -54,7 +54,7 @@ export default function Teams() {
           <p className="text-muted-foreground text-lg">Create or join teams for Duo and Squad tournaments</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Create Team */}
           <Card className="bg-card border-border">
             <CardHeader>
@@ -69,7 +69,7 @@ export default function Teams() {
           </Card>
 
           {/* My Teams */}
-          <Card className="bg-card border-border">
+          <Card className="bg-card border-border lg:col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center neon-blue">
                 <Users className="mr-2 h-5 w-5" />
@@ -78,7 +78,7 @@ export default function Teams() {
             </CardHeader>
             <CardContent>
               {teams && teams.length > 0 ? (
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {teams.map((team: any) => (
                     <TeamCard key={team.id} team={team} />
                   ))}
