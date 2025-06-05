@@ -68,7 +68,7 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {stats?.pendingPayments?.map((payment: any) => (
+                {stats?.pendingPaymentsList?.map((payment: any) => (
                   <div key={payment.id} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
                     <div>
                       <h3 className="text-white font-medium">₹{payment.amount}</h3>
