@@ -105,150 +105,111 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
   const isAlmostFull = participationPercentage >= 80;
 
   return (
-    <Card className={`${theme.bg} ${theme.text} rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 border-0 overflow-hidden group relative`}>
-      {/* Header Banner */}
-      <div className="relative p-4 pb-2">
+    <Card className={`${theme.bg} ${theme.text} rounded-xl shadow-lg hover:shadow-xl transform hover:scale-102 transition-all duration-300 border-0 overflow-hidden group relative`}>
+      {/* Compact Header */}
+      <div className="relative p-3">
         {/* Status Badge */}
-        <Badge className={`${statusBadge.class} absolute top-3 left-3 z-10 font-bold text-xs px-3 py-1 rounded-full shadow-lg`}>
+        <Badge className={`${statusBadge.class} absolute top-2 left-2 z-10 font-bold text-xs px-2 py-0.5 rounded-full`}>
           <StatusIcon className="w-3 h-3 mr-1" />
           {statusBadge.text}
         </Badge>
 
-        {/* Admin Actions (if needed) */}
-        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-          {/* Add admin icons here if needed */}
-        </div>
-
-        {/* Tournament Image/Icon Area */}
-        <div className="mt-8 mb-4 flex justify-center">
-          <div className={`w-16 h-16 rounded-xl ${theme.text === 'text-white' ? 'bg-white/20' : 'bg-black/20'} flex items-center justify-center shadow-lg`}>
-            <TypeIcon className="w-8 h-8" />
+        {/* Type Icon */}
+        <div className="flex justify-center mt-6 mb-2">
+          <div className={`w-10 h-10 rounded-lg ${theme.text === 'text-white' ? 'bg-white/20' : 'bg-black/20'} flex items-center justify-center`}>
+            <TypeIcon className="w-5 h-5" />
           </div>
         </div>
       </div>
 
-      <CardContent className="px-4 pb-4 space-y-4">
-        {/* Title + Info */}
-        <div className="space-y-2">
-          <h3 className={`font-black text-xl ${theme.text} font-orbitron leading-tight`}>
+      <CardContent className="px-3 pb-3 space-y-3">
+        {/* Compact Title */}
+        <div className="text-center">
+          <h3 className={`font-black text-sm ${theme.text} leading-tight line-clamp-2 mb-1`}>
             {tournament.name}
           </h3>
+          <Badge className={`${theme.text === 'text-white' ? 'bg-white/20 text-white' : 'bg-black/20 text-black'} font-bold text-xs px-2 py-0.5`}>
+            {tournament.type.toUpperCase()}
+          </Badge>
+        </div>
 
-          <div className="flex items-center gap-2 flex-wrap">
-            <Badge className={`${theme.text === 'text-white' ? 'bg-white/20 text-white' : 'bg-black/20 text-black'} font-bold text-xs px-2 py-1`}>
-              {tournament.type.toUpperCase()}
-            </Badge>
-            {tournament.map && (
-              <Badge className={`${theme.text === 'text-white' ? 'bg-white/15 text-white' : 'bg-black/15 text-black'} font-medium text-xs px-2 py-1`}>
-                <MapPin className="w-3 h-3 mr-1" />
-                {tournament.map}
-              </Badge>
-            )}
+        {/* Compact Prize Info */}
+        <div className="grid grid-cols-2 gap-2">
+          <div className={`${theme.text === 'text-white' ? 'bg-white/10' : 'bg-black/10'} rounded-lg p-2 text-center`}>
+            <p className={`text-xs ${theme.accent} font-semibold`}>Entry</p>
+            <p className={`text-sm font-black ${theme.text}`}>
+              {tournament.entryFee === "0" ? "FREE" : `₹${tournament.entryFee}`}
+            </p>
+          </div>
+          <div className={`${theme.text === 'text-white' ? 'bg-white/10' : 'bg-black/10'} rounded-lg p-2 text-center`}>
+            <p className={`text-xs ${theme.accent} font-semibold`}>Prize</p>
+            <p className={`text-sm font-black ${theme.text}`}>₹{tournament.prizePool}</p>
           </div>
         </div>
 
-        {/* Entry & Prize */}
-        <div className={`${theme.text === 'text-white' ? 'bg-white/10' : 'bg-black/10'} rounded-xl p-3 space-y-2`}>
+        {/* Compact Players Info */}
+        <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <div>
-              <p className={`text-xs font-semibold ${theme.accent} uppercase tracking-wide`}>Entry Fee</p>
-              <p className={`text-lg font-black ${theme.text}`}>
-                {tournament.entryFee === "0" ? "FREE" : `₹${tournament.entryFee}`}
-              </p>
-            </div>
-            <div className="text-right">
-              <p className={`text-xs font-semibold ${theme.accent} uppercase tracking-wide`}>Prize Pool</p>
-              <p className={`text-lg font-black ${theme.text} flex items-center`}>
-                <Trophy className="w-4 h-4 mr-1" />
-                ₹{tournament.prizePool}
-              </p>
-            </div>
+            <span className={`text-xs ${theme.accent} font-semibold flex items-center`}>
+              <Users className="w-3 h-3 mr-1" />
+              Players
+            </span>
+            <span className={`text-xs font-bold ${theme.text}`}>
+              {tournament.currentParticipants}/{tournament.maxParticipants}
+            </span>
           </div>
-          <div className="text-center">
-            <p className={`text-xs font-bold ${theme.accent}`}>💰 Top 3 Paid</p>
-          </div>
-        </div>
-
-        {/* Time & Slot */}
-        <div className="space-y-3">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className={`text-xs font-semibold ${theme.accent} uppercase tracking-wide`}>Starts In</p>
-              <p className={`text-sm font-bold ${theme.text} flex items-center`}>
-                <Timer className="w-4 h-4 mr-1" />
-                {formatTimeLeft(tournament.startTime)}
-              </p>
-            </div>
-            <div className="text-right">
-              <p className={`text-xs font-semibold ${theme.accent} uppercase tracking-wide`}>Players</p>
-              <p className={`text-sm font-bold ${theme.text} flex items-center justify-end`}>
-                <Users className="w-4 h-4 mr-1" />
-                {tournament.currentParticipants}/{tournament.maxParticipants}
-              </p>
-            </div>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="space-y-1">
-            <div className={`w-full ${theme.text === 'text-white' ? 'bg-white/20' : 'bg-black/20'} rounded-full h-2 overflow-hidden`}>
-              <div 
-                className={`h-full transition-all duration-500 ${
-                  isAlmostFull ? 'bg-red-400 animate-pulse' : 
-                  participationPercentage > 50 ? 'bg-yellow-400' : 'bg-green-400'
-                }`}
-                style={{ width: `${participationPercentage}%` }}
-              />
-            </div>
-            <div className="flex justify-between items-center">
-              <p className={`text-xs font-bold ${theme.accent}`}>
-                {spotsLeft} SPOTS LEFT
-              </p>
-              <p className={`text-xs font-bold ${theme.accent}`}>
-                {Math.round(participationPercentage)}% filled
-              </p>
-            </div>
-            {isAlmostFull && (
-              <p className={`text-xs font-black ${theme.text} text-center animate-pulse`}>
-                🔥 Filling Fast!
-              </p>
-            )}
+          
+          {/* Compact Progress Bar */}
+          <div className={`w-full ${theme.text === 'text-white' ? 'bg-white/20' : 'bg-black/20'} rounded-full h-1.5 overflow-hidden`}>
+            <div 
+              className={`h-full transition-all duration-500 ${
+                isAlmostFull ? 'bg-red-400' : 
+                participationPercentage > 50 ? 'bg-yellow-400' : 'bg-green-400'
+              }`}
+              style={{ width: `${participationPercentage}%` }}
+            />
           </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="pt-2">
-          <Button 
-            className={`w-full ${theme.button} font-black text-sm py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 uppercase tracking-wide`}
-            disabled={isFull}
-          >
-            {isFull ? (
-              <>
-                <CheckCircle className="w-4 h-4 mr-2" />
-                TOURNAMENT FULL
-              </>
-            ) : tournament.status === 'live' ? (
-              <>
-                <Zap className="w-4 h-4 mr-2" />
-                JOIN LIVE
-              </>
-            ) : (
-              <>
-                <Crown className="w-4 h-4 mr-2" />
-                ENTER TOURNAMENT
-              </>
-            )}
-          </Button>
+        {/* Compact Time Info */}
+        <div className="text-center">
+          <p className={`text-xs ${theme.accent} font-semibold`}>Starts In</p>
+          <p className={`text-sm font-bold ${theme.text}`}>
+            {formatTimeLeft(tournament.startTime)}
+          </p>
         </div>
 
-        {/* Bonus XP Badge */}
-        <div className="flex justify-between items-center pt-1">
-          <div className={`${theme.text === 'text-white' ? 'bg-white/15' : 'bg-black/15'} rounded-lg px-2 py-1 flex items-center`}>
+        {/* Compact CTA Button */}
+        <Button 
+          className={`w-full ${theme.button} font-black text-xs py-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 uppercase tracking-wide`}
+          disabled={isFull}
+        >
+          {isFull ? (
+            "FULL"
+          ) : tournament.status === 'live' ? (
+            <>
+              <Zap className="w-3 h-3 mr-1" />
+              JOIN LIVE
+            </>
+          ) : (
+            <>
+              <Crown className="w-3 h-3 mr-1" />
+              ENTER
+            </>
+          )}
+        </Button>
+
+        {/* Compact Footer */}
+        <div className="flex justify-between items-center text-xs">
+          <div className={`${theme.text === 'text-white' ? 'bg-white/15' : 'bg-black/15'} rounded px-2 py-0.5 flex items-center`}>
             <Star className="w-3 h-3 mr-1" />
-            <span className={`text-xs font-bold ${theme.text}`}>+50 XP</span>
+            <span className={`font-bold ${theme.text}`}>+50 XP</span>
           </div>
-          <div className={`text-xs font-semibold ${theme.accent}`}>
-            {new Date(tournament.startTime).toLocaleDateString()} • {new Date(tournament.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          </div>
+          {isAlmostFull && (
+            <span className={`font-black ${theme.text} animate-pulse`}>
+              🔥 Filling Fast!
+            </span>
+          )}
         </div>
       </CardContent>
     </Card>
