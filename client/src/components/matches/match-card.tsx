@@ -163,7 +163,7 @@ export default function MatchCard({ match }: MatchCardProps) {
       
       {/* Geometric pattern overlay */}
       <div className="absolute inset-0 opacity-5 group-hover:opacity-15 transition-opacity duration-500">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23000000" fill-opacity="0.1"%3E%3Cpath d="M30 30L0 0h60z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-gray-500 to-transparent" />
       </div>
 
       {/* Glowing border effect */}
