@@ -104,7 +104,7 @@ export default function WalletPage() {
             </div>
             <h2 className="text-lg text-muted-foreground mb-3">Current Balance</h2>
             <p className="text-5xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
-              ₹{walletBalance?.balance || "0.00"}
+              ₹{(walletBalance as any)?.balance || "0.00"}
             </p>
             <p className="text-sm text-muted-foreground mt-2">Available for tournaments</p>
           </CardContent>

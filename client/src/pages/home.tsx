@@ -62,7 +62,7 @@ export default function Home() {
             </h1>
           </div>
           <p className="text-xl text-muted-foreground mb-2">
-            Welcome back, <span className="font-bold text-orange-500">{user?.displayName || "Gamer"}</span>
+            Welcome back, <span className="font-bold text-orange-500">{(user as any)?.displayName || "Gamer"}</span>
           </p>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Ready to dominate the battlefield? Check your stats, join tournaments, and manage your Fire Fight career
@@ -77,7 +77,7 @@ export default function Home() {
                 <div>
                   <p className="text-sm text-muted-foreground">Wallet Balance</p>
                   <p className="text-2xl font-bold neon-green">
-                    ₹{walletBalance?.balance || "0.00"}
+                    ₹{(walletBalance as any)?.balance || "0.00"}
                   </p>
                 </div>
                 <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
@@ -92,7 +92,7 @@ export default function Home() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Total Matches</p>
-                  <p className="text-2xl font-bold neon-blue">{user?.totalMatches || 0}</p>
+                  <p className="text-2xl font-bold neon-blue">{(user as any)?.totalMatches || 0}</p>
                 </div>
                 <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
                   <Trophy className="h-5 w-5 text-accent" />
@@ -106,7 +106,7 @@ export default function Home() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Total Wins</p>
-                  <p className="text-2xl font-bold neon-red">{user?.totalWins || 0}</p>
+                  <p className="text-2xl font-bold neon-red">{(user as any)?.totalWins || 0}</p>
                 </div>
                 <div className="w-10 h-10 bg-destructive/20 rounded-lg flex items-center justify-center">
                   <Star className="h-5 w-5 text-destructive" />
@@ -121,7 +121,7 @@ export default function Home() {
                 <div>
                   <p className="text-sm text-muted-foreground">Total Earnings</p>
                   <p className="text-2xl font-bold text-foreground">
-                    ₹{user?.totalEarnings || "0.00"}
+                    ₹{(user as any)?.totalEarnings || "0.00"}
                   </p>
                 </div>
                 <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center">
@@ -171,7 +171,7 @@ export default function Home() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {tournaments && tournaments.length > 0 ? (
+              {Array.isArray(tournaments) && tournaments.length > 0 ? (
                 <div className="space-y-3">
                   {tournaments.slice(0, 3).map((tournament: any) => (
                     <div key={tournament.id} className="flex items-center justify-between p-3 bg-muted rounded-lg">
