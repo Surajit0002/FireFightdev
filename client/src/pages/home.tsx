@@ -51,16 +51,26 @@ export default function Home() {
       <Navbar />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="font-orbitron text-4xl font-bold mb-2">
-            Welcome back, <span className="neon-green">{user?.displayName || "Gamer"}</span>
-          </h1>
-          <p className="text-muted-foreground text-lg">Ready to dominate some tournaments?</p>
+        {/* Hero Welcome Section */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+              <Trophy className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="font-orbitron text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">
+              Fire Fight Dashboard
+            </h1>
+          </div>
+          <p className="text-xl text-muted-foreground mb-2">
+            Welcome back, <span className="font-bold text-orange-500">{user?.displayName || "Gamer"}</span>
+          </p>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Ready to dominate the battlefield? Check your stats, join tournaments, and manage your Fire Fight career
+          </p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {/* Enhanced Quick Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <Card className="bg-card border-primary/20">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">

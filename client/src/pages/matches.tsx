@@ -35,7 +35,7 @@ export default function Matches() {
       tournamentName: 'Elite Solo Championship',
       type: 'solo',
       entryFee: '50',
-      status: 'upcoming',
+      status: 'upcoming' as const,
       startTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(), // 2 hours from now
       roomId: null,
       password: null,
@@ -45,7 +45,7 @@ export default function Matches() {
       tournamentName: 'Duo Clash Arena',
       type: 'duo',
       entryFee: '100',
-      status: 'live',
+      status: 'live' as const,
       startTime: new Date(Date.now() - 30 * 60 * 1000).toISOString(), // 30 minutes ago
       roomId: '748392847',
       password: 'fire2024',
@@ -55,7 +55,7 @@ export default function Matches() {
       tournamentName: 'Squad Supremacy',
       type: 'squad',
       entryFee: '200',
-      status: 'completed',
+      status: 'completed' as const,
       startTime: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
       roomId: '123456789',
       password: 'squad123',

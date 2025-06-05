@@ -55,37 +55,47 @@ export default function Leaderboard() {
       <Navbar />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center mb-8">
-          <h1 className="font-orbitron text-4xl font-bold mb-4">Leaderboard</h1>
-          <p className="text-muted-foreground text-lg">Top performers across all tournament categories</p>
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center">
+              <Crown className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="font-orbitron text-4xl font-bold bg-gradient-to-r from-yellow-500 to-orange-600 bg-clip-text text-transparent">
+              Leaderboard
+            </h1>
+          </div>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Top performers across all tournament categories. See who dominates the Fire Fight arena
+          </p>
         </div>
 
         {/* Period Filter */}
-        <div className="flex flex-wrap gap-4 justify-center mb-8">
+        <div className="flex flex-wrap gap-4 justify-center mb-12">
           <Button
             onClick={() => setPeriod("daily")}
             variant={period === "daily" ? "default" : "outline"}
-            className={period === "daily" ? "bg-primary text-primary-foreground" : ""}
+            className={`transition-all duration-300 ${period === "daily" ? "bg-blue-600 text-white shadow-lg scale-105" : "hover:scale-105"}`}
           >
             Daily
           </Button>
           <Button
             onClick={() => setPeriod("weekly")}
             variant={period === "weekly" ? "default" : "outline"}
-            className={period === "weekly" ? "bg-accent text-background" : ""}
+            className={`transition-all duration-300 ${period === "weekly" ? "bg-purple-600 text-white shadow-lg scale-105" : "hover:scale-105"}`}
           >
             Weekly
           </Button>
           <Button
             onClick={() => setPeriod("alltime")}
             variant={period === "alltime" ? "default" : "outline"}
-            className={period === "alltime" ? "bg-destructive text-destructive-foreground" : ""}
+            className={`transition-all duration-300 ${period === "alltime" ? "bg-orange-600 text-white shadow-lg scale-105" : "hover:scale-105"}`}
           >
             All Time
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {/* Top Players */}
           <Card className="bg-card border-border">
             <CardHeader>
@@ -96,7 +106,7 @@ export default function Leaderboard() {
             </CardHeader>
             <CardContent>
               <LeaderboardTable 
-                data={topPlayers || []} 
+                data={Array.isArray(topPlayers) ? topPlayers : []} 
                 type="players"
                 showEarnings={true}
               />
@@ -113,7 +123,7 @@ export default function Leaderboard() {
             </CardHeader>
             <CardContent>
               <LeaderboardTable 
-                data={topTeams || []} 
+                data={Array.isArray(topTeams) ? topTeams : []} 
                 type="teams"
                 showEarnings={false}
               />
