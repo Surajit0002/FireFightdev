@@ -1,73 +1,40 @@
-import { useEffect } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { useToast } from "@/hooks/use-toast";
-import { isUnauthorizedError } from "@/lib/authUtils";
-import AdminSidebar from "@/components/admin/sidebar";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Check, X, Eye, CreditCard } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { CreditCard, Check, X, Eye } from "lucide-react";
-import { format } from "date-fns";
+import AdminSidebar from "@/components/admin/sidebar";
 import { useState } from "react";
 
 export default function AdminPayments() {
   const { toast } = useToast();
-  const { isAuthenticated, isLoading, user } = useAuth();
   const queryClient = useQueryClient();
-  const [selectedPayment, setSelectedPayment] = useState<any>(null);
-  const [adminNotes, setAdminNotes] = useState("");
+  const [selectedPayment, setSelectedPayment] = useState(null);
 
-  // Redirect if not authenticated or not admin
-  useEffect(() => {
-    if (!isLoading && (!isAuthenticated || !user?.isAdmin)) {
-      toast({
-        title: "Unauthorized",
-        description: "Admin access required",
-        variant: "destructive",
-      });
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 500);
-      return;
-    }
-  }, [isAuthenticated, isLoading, user, toast]);
-
-  const { data: payments } = useQuery({
+  const { data: payments, isLoading } = useQuery({
     queryKey: ["/api/admin/payments"],
-    retry: false,
   });
 
   const updatePaymentMutation = useMutation({
     mutationFn: async ({ id, status, adminNotes }: { id: string; status: string; adminNotes?: string }) => {
-      await apiRequest("PATCH", `/api/admin/payments/${id}`, { status, adminNotes });
+      await apiRequest(`/api/admin/payments/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ status, adminNotes }),
+      });
     },
     onSuccess: () => {
+      toast({ title: "Payment status updated successfully" });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/payments"] });
-      toast({
-        title: "Success",
-        description: "Payment status updated successfully",
-      });
       setSelectedPayment(null);
-      setAdminNotes("");
     },
-    onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
+    onError: (error: any) => {
       toast({
-        title: "Error",
-        description: "Failed to update payment status",
+        title: "Error updating payment",
+        description: error.message,
         variant: "destructive",
       });
     },
@@ -75,164 +42,199 @@ export default function AdminPayments() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      <div className="flex min-h-screen bg-black">
+        <AdminSidebar />
+        <div className="flex-1 p-8">
+          <div className="animate-pulse">Loading payments...</div>
+        </div>
       </div>
     );
   }
 
-  if (!user?.isAdmin) {
-    return null;
-  }
+  return (
+    <div className="flex min-h-screen bg-black">
+      <AdminSidebar />
+      <div className="flex-1 p-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white font-orbitron">Payment Management</h1>
+          <p className="text-gray-400 mt-2">Review and approve QR payment proofs</p>
+        </div>
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'approved':
-        return 'bg-primary text-primary-foreground';
-      case 'pending':
-        return 'bg-yellow-500/20 text-yellow-500';
-      case 'rejected':
-        return 'bg-destructive text-destructive-foreground';
-      default:
-        return 'bg-muted text-muted-foreground';
-    }
-  };
+        <div className="grid gap-6">
+          {payments?.map((payment: any) => (
+            <Card key={payment.id} className="bg-gray-900/50 border-gray-700">
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <CreditCard className="h-5 w-5" />
+                      ₹{payment.amount}
+                      <Badge 
+                        variant={
+                          payment.status === 'approved' ? 'default' : 
+                          payment.status === 'rejected' ? 'destructive' : 
+                          'secondary'
+                        }
+                        className={
+                          payment.status === 'approved' ? 'bg-green-600' :
+                          payment.status === 'rejected' ? 'bg-red-600' :
+                          'bg-yellow-600'
+                        }
+                      >
+                        {payment.status}
+                      </Badge>
+                    </CardTitle>
+                    <p className="text-gray-400 mt-1">
+                      {payment.paymentMethod} • {new Date(payment.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" size="sm">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="bg-gray-900 border-gray-700 max-w-2xl">
+                        <DialogHeader>
+                          <DialogTitle className="text-white">Payment Screenshot</DialogTitle>
+                        </DialogHeader>
+                        <div className="p-4">
+                          <img 
+                            src={payment.screenshotUrl} 
+                            alt="Payment Screenshot" 
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                    
+                    {payment.status === 'pending' && (
+                      <>
+                        <Button 
+                          size="sm"
+                          className="bg-green-600 hover:bg-green-700"
+                          onClick={() => updatePaymentMutation.mutate({ 
+                            id: payment.id, 
+                            status: 'approved' 
+                          })}
+                        >
+                          <Check className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => setSelectedPayment(payment)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div>
+                    <p className="text-gray-400 text-sm">User ID</p>
+                    <p className="text-white font-medium">{payment.userId}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Transaction ID</p>
+                    <p className="text-white font-medium">{payment.transactionId || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Payment Method</p>
+                    <p className="text-white font-medium">{payment.paymentMethod}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Submitted</p>
+                    <p className="text-white font-medium">
+                      {new Date(payment.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+                {payment.adminNotes && (
+                  <div className="mt-4 p-3 bg-gray-800/50 rounded-lg">
+                    <p className="text-gray-400 text-sm">Admin Notes</p>
+                    <p className="text-white">{payment.adminNotes}</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
-  const handleApprove = (payment: any) => {
-    updatePaymentMutation.mutate({
-      id: payment.id,
-      status: 'approved',
-      adminNotes,
-    });
-  };
+        {selectedPayment && (
+          <Dialog open={!!selectedPayment} onOpenChange={() => setSelectedPayment(null)}>
+            <DialogContent className="bg-gray-900 border-gray-700">
+              <DialogHeader>
+                <DialogTitle className="text-white">Reject Payment</DialogTitle>
+              </DialogHeader>
+              <RejectPaymentForm 
+                payment={selectedPayment}
+                onSubmit={(adminNotes) => {
+                  updatePaymentMutation.mutate({ 
+                    id: selectedPayment.id, 
+                    status: 'rejected',
+                    adminNotes 
+                  });
+                }}
+                isLoading={updatePaymentMutation.isPending}
+              />
+            </DialogContent>
+          </Dialog>
+        )}
+      </div>
+    </div>
+  );
+}
 
-  const handleReject = (payment: any) => {
-    updatePaymentMutation.mutate({
-      id: payment.id,
-      status: 'rejected',
-      adminNotes,
-    });
+function RejectPaymentForm({ payment, onSubmit, isLoading }: any) {
+  const [adminNotes, setAdminNotes] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(adminNotes);
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
-      <AdminSidebar />
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <p className="text-gray-400 mb-2">
+          Rejecting payment of ₹{payment.amount} from user {payment.userId}
+        </p>
+      </div>
       
-      <main className="flex-1 p-8">
-        <div className="mb-8">
-          <h1 className="font-orbitron text-4xl font-bold mb-2">Payment Management</h1>
-          <p className="text-muted-foreground text-lg">Review and approve payment submissions</p>
-        </div>
+      <div>
+        <label className="text-white block mb-2">Reason for rejection</label>
+        <Textarea
+          value={adminNotes}
+          onChange={(e) => setAdminNotes(e.target.value)}
+          className="bg-gray-800 border-gray-600 text-white"
+          placeholder="Please provide a reason for rejecting this payment..."
+          rows={3}
+          required
+        />
+      </div>
 
-        {payments && payments.length > 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {payments.map((payment: any) => (
-              <Card key={payment.id} className="bg-card border-border">
-                <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">Payment Verification</CardTitle>
-                    <Badge className={getStatusColor(payment.status)}>
-                      {payment.status.toUpperCase()}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">User ID:</span>
-                      <span className="font-mono">{payment.userId}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Amount:</span>
-                      <span className="neon-green font-semibold">₹{payment.amount}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Method:</span>
-                      <span className="font-semibold">{payment.paymentMethod}</span>
-                    </div>
-                    {payment.transactionId && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Transaction ID:</span>
-                        <span className="font-mono">{payment.transactionId}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Submitted:</span>
-                      <span>{format(new Date(payment.createdAt), 'MMM dd, yyyy HH:mm')}</span>
-                    </div>
-                    
-                    {payment.screenshotUrl && (
-                      <div className="mt-3">
-                        <p className="text-sm text-muted-foreground mb-2">Payment Screenshot:</p>
-                        <div className="bg-muted rounded-lg p-2">
-                          <img 
-                            src={payment.screenshotUrl} 
-                            alt="Payment proof" 
-                            className="w-full h-32 object-cover rounded"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjMUYyOTM3Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjQiIGZpbGw9IiM2NTZENzYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+UGF5bWVudCBQcm9vZjwvdGV4dD4KPC9zdmc+';
-                            }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                    
-                    {payment.status === 'pending' && (
-                      <div className="space-y-3 mt-4">
-                        <Textarea
-                          placeholder="Add admin notes (optional)"
-                          value={selectedPayment?.id === payment.id ? adminNotes : ""}
-                          onChange={(e) => {
-                            setSelectedPayment(payment);
-                            setAdminNotes(e.target.value);
-                          }}
-                          className="bg-muted border-border"
-                        />
-                        <div className="flex space-x-2">
-                          <Button
-                            size="sm"
-                            className="flex-1 bg-primary text-primary-foreground"
-                            onClick={() => handleApprove(payment)}
-                            disabled={updatePaymentMutation.isPending}
-                          >
-                            <Check className="mr-1 h-3 w-3" />
-                            Approve
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            className="flex-1"
-                            onClick={() => handleReject(payment)}
-                            disabled={updatePaymentMutation.isPending}
-                          >
-                            <X className="mr-1 h-3 w-3" />
-                            Reject
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {payment.adminNotes && (
-                      <div className="mt-3 p-3 bg-muted rounded-lg">
-                        <p className="text-sm text-muted-foreground mb-1">Admin Notes:</p>
-                        <p className="text-sm">{payment.adminNotes}</p>
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <Card className="bg-card border-border">
-            <CardContent className="text-center py-12">
-              <CreditCard className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No payment submissions</h3>
-              <p className="text-muted-foreground">Payment proofs will appear here for review</p>
-            </CardContent>
-          </Card>
-        )}
-      </main>
-    </div>
+      <div className="flex gap-2">
+        <Button 
+          type="submit" 
+          variant="destructive" 
+          className="flex-1"
+          disabled={isLoading}
+        >
+          {isLoading ? "Rejecting..." : "Reject Payment"}
+        </Button>
+        <Button 
+          type="button" 
+          variant="outline" 
+          onClick={() => setAdminNotes("")}
+        >
+          Cancel
+        </Button>
+      </div>
+    </form>
   );
 }

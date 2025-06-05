@@ -145,7 +145,7 @@ export const paymentProofs = pgTable("payment_proofs", {
 // Notifications table
 export const notifications = pgTable("notifications", {
   id: uuid("id").primaryKey().defaultRandom(),
-  userId: varchar("user_id"),
+  userId: varchar("user_id").notNull(),
   title: varchar("title", { length: 200 }).notNull(),
   message: text("message").notNull(),
   type: varchar("type", { length: 50 }).notNull(), // 'tournament', 'payment', 'match_result', 'general'
