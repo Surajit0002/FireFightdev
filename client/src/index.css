@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Dark theme gaming colors */
+  --background: 221 39% 11%; /* #0D1117 */
+  --foreground: 0 0% 98%; /* #FAFAFA */
+  --muted: 222 13% 15%; /* #1C2128 */
+  --muted-foreground: 220 9% 46%; /* #656D76 */
+  --popover: 222 13% 15%; /* #1C2128 */
+  --popover-foreground: 0 0% 98%; /* #FAFAFA */
+  --card: 222 13% 15%; /* #161B22 */
+  --card-foreground: 0 0% 98%; /* #FAFAFA */
+  --border: 220 13% 18%; /* #30363D */
+  --input: 220 13% 18%; /* #30363D */
+  --primary: 158 64% 52%; /* #00FF88 - neon green */
+  --primary-foreground: 221 39% 11%; /* #0D1117 */
+  --secondary: 222 13% 15%; /* #1C2128 */
+  --secondary-foreground: 0 0% 98%; /* #FAFAFA */
+  --accent: 195 100% 50%; /* #00BFFF - neon blue */
+  --accent-foreground: 221 39% 11%; /* #0D1117 */
+  --destructive: 348 83% 47%; /* #DC2626 */
+  --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+  --ring: 158 64% 52%; /* #00FF88 */
+  --radius: 0.5rem;
+  
+  /* Custom gaming colors */
+  --neon-green: 158 100% 50%; /* #00FF88 */
+  --neon-blue: 195 100% 50%; /* #00BFFF */
+  --neon-red: 348 83% 62%; /* #FF4757 */
+  --dark-bg: 221 39% 11%; /* #0D1117 */
+  --dark-card: 222 13% 15%; /* #161B22 */
+  --dark-border: 220 13% 18%; /* #30363D */
+}
+
+.dark {
+  --background: 221 39% 11%; /* #0D1117 */
+  --foreground: 0 0% 98%; /* #FAFAFA */
+  --muted: 222 13% 15%; /* #1C2128 */
+  --muted-foreground: 220 9% 46%; /* #656D76 */
+  --popover: 222 13% 15%; /* #1C2128 */
+  --popover-foreground: 0 0% 98%; /* #FAFAFA */
+  --card: 222 13% 15%; /* #161B22 */
+  --card-foreground: 0 0% 98%; /* #FAFAFA */
+  --border: 220 13% 18%; /* #30363D */
+  --input: 220 13% 18%; /* #30363D */
+  --primary: 158 64% 52%; /* #00FF88 */
+  --primary-foreground: 221 39% 11%; /* #0D1117 */
+  --secondary: 222 13% 15%; /* #1C2128 */
+  --secondary-foreground: 0 0% 98%; /* #FAFAFA */
+  --accent: 195 100% 50%; /* #00BFFF */
+  --accent-foreground: 221 39% 11%; /* #0D1117 */
+  --destructive: 348 83% 47%; /* #DC2626 */
+  --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+  --ring: 158 64% 52%; /* #00FF88 */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-orbitron {
+    font-family: 'Orbitron', monospace;
+  }
+
+  .neon-green {
+    color: hsl(var(--neon-green));
+  }
+
+  .neon-blue {
+    color: hsl(var(--neon-blue));
+  }
+
+  .neon-red {
+    color: hsl(var(--neon-red));
+  }
+
+  .bg-neon-green {
+    background-color: hsl(var(--neon-green));
+  }
+
+  .bg-neon-blue {
+    background-color: hsl(var(--neon-blue));
+  }
+
+  .bg-neon-red {
+    background-color: hsl(var(--neon-red));
+  }
+
+  .border-neon-green {
+    border-color: hsl(var(--neon-green));
+  }
+
+  .border-neon-blue {
+    border-color: hsl(var(--neon-blue));
+  }
+
+  .border-neon-red {
+    border-color: hsl(var(--neon-red));
+  }
+
+  .shadow-neon-green {
+    box-shadow: 0 0 20px hsla(var(--neon-green), 0.3);
+  }
+
+  .shadow-neon-blue {
+    box-shadow: 0 0 20px hsla(var(--neon-blue), 0.3);
+  }
+
+  .shadow-neon-red {
+    box-shadow: 0 0 20px hsla(var(--neon-red), 0.3);
+  }
+
+  @keyframes pulse-neon {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse-neon {
+    animation: pulse-neon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+/* Gaming UI Enhancements */
+.glass-effect {
+  background: rgba(22, 27, 34, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--dark-border));
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, hsl(var(--neon-green)), hsl(var(--neon-blue)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--dark-bg));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--neon-green));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--neon-blue));
+}
