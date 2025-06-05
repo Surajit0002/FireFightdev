@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { 
   Search, 
   Filter, 
@@ -28,7 +29,8 @@ import {
   DollarSign,
   Flame,
   Settings,
-  Zap
+  Zap,
+  X
 } from "lucide-react";
 
 export default function Tournaments() {
@@ -42,6 +44,7 @@ export default function Tournaments() {
   const [viewMode, setViewMode] = useState("grid");
   const [prizeFilter, setPrizeFilter] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   // Redirect to home if not authenticated
   useEffect(() => {
@@ -209,7 +212,7 @@ export default function Tournaments() {
         </div>
 
         {/* Enhanced Search and Filter Section */}
-        <Card className="mb-8 bg-white/80 backdrop-blur-sm border border-gray-200 shadow-xl">
+        <Card className="mb-8 bg-white shadow-xl border-0">
           <CardContent className="p-6">
             {/* Top Row - Search and View Toggle */}
             <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -224,26 +227,202 @@ export default function Tournaments() {
                 />
               </div>
               
-              {/* View Mode Toggle */}
+              {/* View Mode Toggle & Filter Button */}
               <div className="flex items-center gap-2">
                 <Button
                   variant={viewMode === 'grid' ? 'default' : 'outline'}
                   onClick={() => setViewMode('grid')}
-                  className="h-12 px-4"
+                  className="h-12 px-4 bg-orange-500 hover:bg-orange-600 text-white border-0"
                 >
                   <Grid3X3 className="h-5 w-5" />
                 </Button>
                 <Button
                   variant={viewMode === 'list' ? 'default' : 'outline'}
                   onClick={() => setViewMode('list')}
-                  className="h-12 px-4"
+                  className="h-12 px-4 bg-blue-500 hover:bg-blue-600 text-white border-0"
                 >
                   <List className="h-5 w-5" />
                 </Button>
+                
+                {/* Mobile Filter Sheet */}
+                <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+                  <SheetTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="h-12 px-4 md:hidden bg-purple-500 hover:bg-purple-600 text-white border-0"
+                    >
+                      <Filter className="h-5 w-5 mr-2" />
+                      Filters
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="w-80 bg-white">
+                    <SheetHeader>
+                      <SheetTitle className="text-xl font-bold text-gray-900 flex items-center">
+                        <Filter className="h-5 w-5 mr-2" />
+                        Tournament Filters
+                      </SheetTitle>
+                    </SheetHeader>
+                    
+                    <div className="mt-6 space-y-6">
+                      {/* Status Filter */}
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">Status</h3>
+                        <div className="space-y-2">
+                          <Button
+                            variant={statusFilter === 'live' ? 'default' : 'outline'}
+                            onClick={() => setStatusFilter('live')}
+                            className={`w-full justify-start h-11 ${statusFilter === 'live' ? 'bg-red-500 hover:bg-red-600 text-white' : 'bg-white hover:bg-red-50 text-gray-700 border-gray-300'}`}
+                          >
+                            <Zap className="h-4 w-4 mr-2" />
+                            Live
+                          </Button>
+                          <Button
+                            variant={statusFilter === 'upcoming' ? 'default' : 'outline'}
+                            onClick={() => setStatusFilter('upcoming')}
+                            className={`w-full justify-start h-11 ${statusFilter === 'upcoming' ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-white hover:bg-green-50 text-gray-700 border-gray-300'}`}
+                          >
+                            <Clock className="h-4 w-4 mr-2" />
+                            Upcoming
+                          </Button>
+                          <Button
+                            variant={statusFilter === 'completed' ? 'default' : 'outline'}
+                            onClick={() => setStatusFilter('completed')}
+                            className={`w-full justify-start h-11 ${statusFilter === 'completed' ? 'bg-gray-500 hover:bg-gray-600 text-white' : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-300'}`}
+                          >
+                            <Star className="h-4 w-4 mr-2" />
+                            Completed
+                          </Button>
+                          <Button
+                            variant={statusFilter === 'all' ? 'default' : 'outline'}
+                            onClick={() => setStatusFilter('all')}
+                            className={`w-full justify-start h-11 ${statusFilter === 'all' ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'bg-white hover:bg-blue-50 text-gray-700 border-gray-300'}`}
+                          >
+                            <Trophy className="h-4 w-4 mr-2" />
+                            All Tournaments
+                          </Button>
+                        </div>
+                      </div>
+
+                      {/* Type Filter */}
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">Game Type</h3>
+                        <Select value={typeFilter} onValueChange={setTypeFilter}>
+                          <SelectTrigger className="h-11 bg-white border-gray-300">
+                            <SelectValue placeholder="Select Type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All Types</SelectItem>
+                            <SelectItem value="Solo">
+                              <div className="flex items-center">
+                                <Target className="h-4 w-4 mr-2" />
+                                Solo
+                              </div>
+                            </SelectItem>
+                            <SelectItem value="Duo">
+                              <div className="flex items-center">
+                                <Users className="h-4 w-4 mr-2" />
+                                Duo
+                              </div>
+                            </SelectItem>
+                            <SelectItem value="Squad">
+                              <div className="flex items-center">
+                                <Shield className="h-4 w-4 mr-2" />
+                                Squad
+                              </div>
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Prize Filter */}
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">Prize Range</h3>
+                        <Select value={prizeFilter} onValueChange={setPrizeFilter}>
+                          <SelectTrigger className="h-11 bg-white border-gray-300">
+                            <SelectValue placeholder="Select Range" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All Prizes</SelectItem>
+                            <SelectItem value="low">Below ₹1,000</SelectItem>
+                            <SelectItem value="medium">₹1,000 - ₹5,000</SelectItem>
+                            <SelectItem value="high">₹5,000 - ₹10,000</SelectItem>
+                            <SelectItem value="premium">Above ₹10,000</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Sort Options */}
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">Sort By</h3>
+                        <div className="space-y-2">
+                          <Select value={sortBy} onValueChange={setSortBy}>
+                            <SelectTrigger className="h-11 bg-white border-gray-300">
+                              <SelectValue placeholder="Sort Field" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="startTime">
+                                <div className="flex items-center">
+                                  <Calendar className="h-4 w-4 mr-2" />
+                                  Start Time
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="prizePool">
+                                <div className="flex items-center">
+                                  <Trophy className="h-4 w-4 mr-2" />
+                                  Prize Pool
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="entryFee">
+                                <div className="flex items-center">
+                                  <DollarSign className="h-4 w-4 mr-2" />
+                                  Entry Fee
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="participants">
+                                <div className="flex items-center">
+                                  <Users className="h-4 w-4 mr-2" />
+                                  Participants
+                                </div>
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                          
+                          <Button
+                            variant="outline"
+                            onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                            className="w-full h-11 bg-white border-gray-300 hover:bg-gray-50"
+                          >
+                            {sortOrder === 'asc' ? <SortAsc className="h-4 w-4 mr-2" /> : <SortDesc className="h-4 w-4 mr-2" />}
+                            {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+                          </Button>
+                        </div>
+                      </div>
+
+                      {/* Reset Button */}
+                      <Button
+                        onClick={() => {
+                          setSearchQuery("");
+                          setStatusFilter("upcoming");
+                          setTypeFilter("all");
+                          setPrizeFilter("all");
+                          setSortBy("startTime");
+                          setSortOrder("asc");
+                          setMobileFiltersOpen(false);
+                        }}
+                        className="w-full h-11 bg-orange-500 hover:bg-orange-600 text-white"
+                      >
+                        <Settings className="h-4 w-4 mr-2" />
+                        Reset All Filters
+                      </Button>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+
+                {/* Desktop Filter Button */}
                 <Button
                   variant="outline"
                   onClick={() => setShowFilters(!showFilters)}
-                  className="h-12 px-4"
+                  className="h-12 px-4 hidden md:flex bg-green-500 hover:bg-green-600 text-white border-0"
                 >
                   <Filter className="h-5 w-5 mr-2" />
                   Filters
@@ -255,7 +434,7 @@ export default function Tournaments() {
             <div className="flex flex-wrap gap-2 mb-4">
               <Badge 
                 variant={statusFilter === 'live' ? 'default' : 'outline'}
-                className="cursor-pointer px-4 py-2 text-sm font-semibold hover:bg-red-500 hover:text-white transition-all"
+                className={`cursor-pointer px-4 py-2 text-sm font-semibold transition-all ${statusFilter === 'live' ? 'bg-red-500 text-white' : 'bg-white text-red-500 border-red-500 hover:bg-red-500 hover:text-white'}`}
                 onClick={() => setStatusFilter('live')}
               >
                 <Zap className="h-4 w-4 mr-1" />
@@ -263,7 +442,7 @@ export default function Tournaments() {
               </Badge>
               <Badge 
                 variant={statusFilter === 'upcoming' ? 'default' : 'outline'}
-                className="cursor-pointer px-4 py-2 text-sm font-semibold hover:bg-green-500 hover:text-white transition-all"
+                className={`cursor-pointer px-4 py-2 text-sm font-semibold transition-all ${statusFilter === 'upcoming' ? 'bg-green-500 text-white' : 'bg-white text-green-500 border-green-500 hover:bg-green-500 hover:text-white'}`}
                 onClick={() => setStatusFilter('upcoming')}
               >
                 <Clock className="h-4 w-4 mr-1" />
@@ -271,7 +450,7 @@ export default function Tournaments() {
               </Badge>
               <Badge 
                 variant={statusFilter === 'completed' ? 'default' : 'outline'}
-                className="cursor-pointer px-4 py-2 text-sm font-semibold hover:bg-gray-500 hover:text-white transition-all"
+                className={`cursor-pointer px-4 py-2 text-sm font-semibold transition-all ${statusFilter === 'completed' ? 'bg-gray-500 text-white' : 'bg-white text-gray-500 border-gray-500 hover:bg-gray-500 hover:text-white'}`}
                 onClick={() => setStatusFilter('completed')}
               >
                 <Star className="h-4 w-4 mr-1" />
@@ -279,19 +458,19 @@ export default function Tournaments() {
               </Badge>
               <Badge 
                 variant={statusFilter === 'all' ? 'default' : 'outline'}
-                className="cursor-pointer px-4 py-2 text-sm font-semibold hover:bg-blue-500 hover:text-white transition-all"
+                className={`cursor-pointer px-4 py-2 text-sm font-semibold transition-all ${statusFilter === 'all' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white'}`}
                 onClick={() => setStatusFilter('all')}
               >
                 All Tournaments
               </Badge>
             </div>
 
-            {/* Advanced Filters - Collapsible */}
+            {/* Desktop Advanced Filters - Collapsible */}
             {showFilters && (
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4 border-t border-gray-200 animate-in slide-in-from-top-2 duration-300">
+              <div className="hidden md:grid grid-cols-1 md:grid-cols-4 gap-4 pt-4 border-t border-gray-200 animate-in slide-in-from-top-2 duration-300">
                 {/* Type Filter */}
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
-                  <SelectTrigger className="h-11">
+                  <SelectTrigger className="h-11 bg-white border-gray-300">
                     <SelectValue placeholder="Game Type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -319,7 +498,7 @@ export default function Tournaments() {
 
                 {/* Prize Range Filter */}
                 <Select value={prizeFilter} onValueChange={setPrizeFilter}>
-                  <SelectTrigger className="h-11">
+                  <SelectTrigger className="h-11 bg-white border-gray-300">
                     <SelectValue placeholder="Prize Range" />
                   </SelectTrigger>
                   <SelectContent>
@@ -333,7 +512,7 @@ export default function Tournaments() {
 
                 {/* Sort By */}
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="h-11">
+                  <SelectTrigger className="h-11 bg-white border-gray-300">
                     <SelectValue placeholder="Sort By" />
                   </SelectTrigger>
                   <SelectContent>
@@ -368,7 +547,7 @@ export default function Tournaments() {
                 <Button
                   variant="outline"
                   onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                  className="h-11 flex items-center justify-center gap-2"
+                  className="h-11 flex items-center justify-center gap-2 bg-white border-gray-300 hover:bg-gray-50"
                 >
                   {sortOrder === 'asc' ? <SortAsc className="h-4 w-4" /> : <SortDesc className="h-4 w-4" />}
                   {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
