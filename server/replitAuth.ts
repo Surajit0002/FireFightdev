@@ -25,12 +25,21 @@ const getOidcConfig = memoize(
 export function getSession() {
   const sessionTtl = 7 * 24 * 60 * 60 * 1000; // 1 week
   const pgStore = connectPg(session);
+  
+  if (!process.env.DATABASE_URL) {
+    throw new Error("DATABASE_URL is required for session store");
+  }
+  
   const sessionStore = new pgStore({
     conString: process.env.DATABASE_URL,
-    createTableIfMissing: false,
+    createTableIfMissing: true, // Allow creating the sessions table if it doesn't exist
     ttl: sessionTtl,
     tableName: "sessions",
+    errorLog: (err) => {
+      console.error("Session store error:", err);
+    },
   });
+  
   return session({
     secret: process.env.SESSION_SECRET!,
     store: sessionStore,
